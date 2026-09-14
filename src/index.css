@@ -81,11 +81,11 @@ main { max-width:1280px; margin:auto; }
 .country-table>div:nth-child(3n+2) { border-left:0; border-right:0; }
 .country-table>div:nth-last-child(-n+3) { border-bottom:0; }
 .country-table>div.emphasise { color:var(--red-dark); font-weight:700; background:#fff7f8; }
-.problem-list { margin-top:26px; display:grid; grid-template-columns:1fr 1fr; gap:0 34px; border-top:2px solid var(--navy); }
-.problem-list>div { min-height:0; padding:22px 0; border:0; border-bottom:1px solid var(--line); border-radius:0; background:#fff; display:grid; grid-template-columns:30px 1fr; gap:12px; }
-.problem-list>div>span { color:var(--red); font-size:12px; font-weight:900; padding-top:2px; }
-.problem-list p { display:flex; flex-direction:column; gap:6px; margin:0; color:#27343e; font-size:15px; line-height:1.65; }
-.problem-list strong { color:var(--navy); font-size:16px; }
+.problem-list { margin-top:26px; display:flex; flex-direction:column; border-top:2px solid var(--navy); }
+.problem-list>div { min-height:0; padding:25px 0; border:0; border-bottom:1px solid var(--line); border-radius:0; background:transparent; display:grid; grid-template-columns:44px 1fr; gap:16px; }
+.problem-list>div>span { color:var(--red); font-size:13px; font-weight:900; line-height:1.55; letter-spacing:.04em; }
+.problem-list p { display:grid; grid-template-columns:180px 1fr; align-items:start; gap:25px; margin:0; color:#27343e; font-size:15px; line-height:1.65; }
+.problem-list strong { color:var(--navy); font-size:16px; line-height:1.45; }
 .warning { margin-top:16px; padding:21px 22px; border:0; border-radius:var(--radius-small); background:#f4f6f7; }
 .warning strong { color:var(--navy); font-size:15px; }
 .warning p { margin:6px 0 0; color:#26333d; font-size:15px; line-height:1.65; }
@@ -217,7 +217,7 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
   .country-table>div:nth-child(odd) { border-right:0; }
   .country-table>div:nth-last-child(-n+3) { border-bottom:1px solid var(--line); }
   .country-table>div:nth-last-child(-n+2) { border-bottom:0; }
-  .problem-list { grid-template-columns:1fr; }
+  .problem-list p { grid-template-columns:1fr; gap:6px; }
   .help-panel { padding:27px!important; }
   .visa-sidebar { grid-template-columns:1fr; }
   .form-grid { grid-template-columns:1fr; }
