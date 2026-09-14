@@ -48,7 +48,7 @@ function ConsultationForm({ compact = false }) {
           <button type="button" className="select-button full muted">When do you plan to start?* <Chevron /></button>
           <label className="interest-label">Interested in? <i>*</i></label>
           <button type="button" className="select-button full">SAT <Chevron /></button>
-          <label className="consent"><input type="checkbox" defaultChecked /> <span>I agree to AECC's <a href="#privacy">Privacy Policy</a> and <a href="#terms">Terms and Conditions</a> *</span></label>
+          <label className="consent"><input type="checkbox" defaultChecked /> <span>I agree to Red Earth's <a href="#privacy">Privacy Policy</a> and <a href="#terms">Terms and Conditions</a> *</span></label>
           <button className="primary" type="submit">Get SAT Guidance Now <b>›</b></button>
         </>
       )}
@@ -80,7 +80,7 @@ function App() {
             <h1>SAT Exam Guide 2026 for International Students</h1>
             <p className="lead">Here is a detailed guide for the SAT exam, outlining important topics like the SAT eligibility criteria, registration process, SAT exam fees, dates, SAT syllabus and scoring mechanism, and preparation tips to help you score high.</p>
             <div className="meta"><span>by <a href="#author">Bindu Mary Idicula</a></span><span>◷ &nbsp;23rd Apr 2026</span><span>▤ &nbsp;17 mins read</span><span>⊙ &nbsp;189K views</span></div>
-            <div className="share-row"><button><b>G</b> Add AECC on Google</button><span>Share <b className="share-icon">⌯</b></span></div>
+            <div className="share-row"><button><b>G</b> Add Red Earth on Google</button><span>Share <b className="share-icon">⌯</b></span></div>
             <img className="hero-image" src="https://static.aeccglobal.com/study_abroad_exams_4de081cc28.webp" alt="Students preparing to study abroad" />
           </div>
           <aside id="consultation"><ConsultationForm /></aside>
