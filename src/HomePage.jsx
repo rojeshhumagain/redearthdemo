@@ -30,6 +30,14 @@ const finderResults = {
   visit: ['Visitor visa pathways', 'Your passport, purpose of travel and intended stay can determine whether an ETA, eVisitor or Visitor Visa may be relevant.', '/visitor-visa/electronic-travel-authority-601'],
 }
 
+const processSteps = [
+  ['Understand', 'We begin with your goals, circumstances, current status and the questions that matter most to you.'],
+  ['Assess', 'Our team reviews the relevant pathways, requirements, timing considerations and potential risks.'],
+  ['Plan', 'You receive a clear strategy covering the proposed pathway, evidence, responsibilities and next steps.'],
+  ['Prepare', 'We help organise, review and prepare the application material before lodgement or submission.'],
+  ['Support', 'We keep communication clear, help respond to requests and explain what comes next as the matter progresses.'],
+]
+
 function VisaPathwayFinder() {
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState([])
@@ -124,6 +132,12 @@ export default function HomePage() {
         </section>
 
         <VisaPathwayFinder />
+
+        <section className="home-process" aria-labelledby="process-title">
+          <div className="process-heading"><div><p>HOW WE WORK</p><h2 id="process-title">A clear process for decisions that matter.</h2></div><p>You should always know what stage you are at, what is required and what happens next. Our process is designed to make complex matters easier to understand without oversimplifying them.</p></div>
+          <div className="process-steps">{processSteps.map(([title, description], index) => <article key={title}><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
+          <div className="process-close"><strong>Every matter is different.</strong><p>Your pathway, documentation and timing will be assessed against your individual circumstances.</p><a href="#home-consultation">Start a conversation <b>›</b></a></div>
+        </section>
       </main>
     </div>
   )
