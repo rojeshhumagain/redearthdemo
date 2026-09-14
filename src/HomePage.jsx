@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import SiteHeader from './SiteHeader'
 
 const pathways = [
@@ -7,6 +7,61 @@ const pathways = [
   ['Join family', 'Partner, parent and family visas', '#family-visas'],
   ['Visit', 'Visitor and working holiday visas', '/visitor-visa/electronic-travel-authority-601'],
 ]
+
+const finderQuestions = [
+  {
+    prompt: 'What is your main goal in Australia?',
+    options: [['study', 'Study', 'Begin or continue your education'], ['work', 'Work', 'Explore skilled or employer pathways'], ['family', 'Join family', 'Live with a partner, parent or child'], ['visit', 'Visit', 'Travel, see family or attend business activities']],
+  },
+  {
+    prompt: 'Where are you currently located?',
+    options: [['inside', 'In Australia', 'I currently hold or have held an Australian visa'], ['outside', 'Outside Australia', 'I am planning my move from overseas']],
+  },
+  {
+    prompt: 'Do you have an Australian sponsor?',
+    options: [['yes', 'Yes', 'A person or employer may be able to sponsor me'], ['no', 'No', 'I need to understand independent options'], ['unsure', 'Not sure', 'I would like help understanding sponsorship']],
+  },
+]
+
+const finderResults = {
+  study: ['Student and graduate pathways', 'Your starting point may include course selection, a Student Visa Subclass 500 or post-study options.', '#student-visa'],
+  work: ['Skilled and employer pathways', 'Your experience, occupation, location and sponsor status can shape the skilled or employer-sponsored options available.', '#skilled-migration'],
+  family: ['Partner and family pathways', 'Your relationship, sponsor eligibility and current location can affect which partner, parent or family pathway is appropriate.', '#family-visas'],
+  visit: ['Visitor visa pathways', 'Your passport, purpose of travel and intended stay can determine whether an ETA, eVisitor or Visitor Visa may be relevant.', '/visitor-visa/electronic-travel-authority-601'],
+}
+
+function VisaPathwayFinder() {
+  const [step, setStep] = useState(0)
+  const [answers, setAnswers] = useState([])
+  const complete = step === finderQuestions.length
+  const result = complete ? finderResults[answers[0]] : null
+
+  const chooseAnswer = (value) => {
+    setAnswers((current) => [...current.slice(0, step), value])
+    setStep((current) => current + 1)
+  }
+
+  const goBack = () => {
+    setStep((current) => Math.max(0, current - 1))
+  }
+
+  const restart = () => {
+    setAnswers([])
+    setStep(0)
+  }
+
+  return (
+    <section className="visa-finder" aria-labelledby="finder-title">
+      <div className="finder-inner">
+        <div className="finder-intro"><p>VISA PATHWAY FINDER</p><h2 id="finder-title">Not sure where to begin?</h2><span>Answer three simple questions to identify a useful starting point for your conversation with our team.</span><small>This tool provides general guidance only. It is not a visa eligibility assessment or migration advice.</small></div>
+        <div className="finder-panel" aria-live="polite">
+          <div className="finder-progress"><span>{complete ? 'Your starting point' : `Question ${step + 1} of ${finderQuestions.length}`}</span><div><i style={{ width: `${complete ? 100 : ((step + 1) / finderQuestions.length) * 100}%` }} /></div></div>
+          {!complete ? <><h3>{finderQuestions[step].prompt}</h3><div className="finder-options">{finderQuestions[step].options.map(([value, label, detail]) => <button type="button" onClick={() => chooseAnswer(value)} key={value}><span><strong>{label}</strong><small>{detail}</small></span><b>›</b></button>)}</div>{step > 0 && <button className="finder-back" type="button" onClick={goBack}>← Back</button>}</> : <div className="finder-result"><p>RECOMMENDED CATEGORY</p><h3>{result[0]}</h3><span>{result[1]}</span><dl><div><dt>Your goal</dt><dd>{finderQuestions[0].options.find(([value]) => value === answers[0])?.[1]}</dd></div><div><dt>Current location</dt><dd>{finderQuestions[1].options.find(([value]) => value === answers[1])?.[1]}</dd></div><div><dt>Sponsor</dt><dd>{finderQuestions[2].options.find(([value]) => value === answers[2])?.[1]}</dd></div></dl><div className="finder-result-actions"><a href={result[2]}>Explore this pathway <b>›</b></a><button type="button" onClick={restart}>Start again</button></div></div>}
+        </div>
+      </div>
+    </section>
+  )
+}
 
 export default function HomePage() {
   useEffect(() => {
@@ -67,6 +122,8 @@ export default function HomePage() {
             </article>
           </div>
         </section>
+
+        <VisaPathwayFinder />
       </main>
     </div>
   )
