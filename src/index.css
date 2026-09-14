@@ -94,13 +94,15 @@ main { max-width:1280px; margin:auto; }
 .help-panel h2 { color:#fff; }
 .help-panel>p:not(.section-label) { max-width:620px; color:#dbe6f0!important; margin-bottom:22px; }
 .faq-section { padding-top:5px; }
-.faq { margin-bottom:10px; border:1px solid var(--line); border-radius:4px; overflow:hidden; }
-.faq button { width:100%; padding:17px 18px; border:0; background:#fff; display:flex; align-items:center; justify-content:space-between; gap:20px; text-align:left; color:var(--navy); font-size:16px; font-weight:700; cursor:pointer; transition:background .16s ease,color .16s ease; }
-.faq button:hover { background:var(--navy-soft); }
-.faq button b { display:grid; place-items:center; width:27px; height:27px; min-width:27px; border:1px solid #e7a6ad; border-radius:50%; color:var(--red); font-size:18px; line-height:1; }
-.faq button[aria-expanded='true'] { background:var(--navy); color:#fff; }
-.faq button[aria-expanded='true'] b { border-color:#fff; color:#fff; }
-.faq>p { margin:0; padding:17px 18px 19px; border-top:3px solid var(--red); background:#f8fafb; color:#202b34; font-size:15px; line-height:1.7; }
+.faq-section>h2 { margin-bottom:25px; }
+.faq { margin:0; border:0; border-bottom:1px solid var(--line); border-radius:0; overflow:visible; }
+.faq:first-of-type { border-top:2px solid var(--navy); }
+.faq button { width:100%; padding:21px 4px; border:0; background:transparent; display:grid; grid-template-columns:1fr auto; align-items:center; gap:24px; text-align:left; color:var(--navy); font-size:17px; font-weight:700; cursor:pointer; transition:color .16s ease; }
+.faq button:hover { background:transparent; color:var(--red); }
+.faq button b { display:block; width:auto; height:auto; min-width:18px; border:0; border-radius:0; color:var(--red); font-size:24px; font-weight:400; line-height:1; text-align:center; }
+.faq button[aria-expanded='true'] { background:transparent; color:var(--red); }
+.faq button[aria-expanded='true'] b { border:0; color:var(--red); }
+.faq>p { max-width:690px; margin:0; padding:0 42px 24px 4px; border:0; background:transparent; color:#202b34; font-size:16px; line-height:1.75; }
 .visa-sidebar { position:sticky; top:25px; display:flex; flex-direction:column; gap:16px; }
 .visa-details { overflow:hidden; border:0; border-top:4px solid var(--red); border-radius:0; background:var(--navy-soft); box-shadow:none; }
 .visa-details>p { margin:0; padding:22px 21px 3px; color:var(--red); font-size:11px; font-weight:900; letter-spacing:.1em; }
