@@ -112,10 +112,33 @@ function EnquiryForm() {
 
 function App() {
   const relatedRef = useRef(null)
+  const dragState = useRef({ dragging: false, moved: false, startX: 0, scrollLeft: 0 })
   const [menuOpen, setMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('overview')
   const [faqOpen, setFaqOpen] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+
+  const startRelatedDrag = (event) => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return
+    dragState.current = { dragging: true, moved: false, startX: event.clientX, scrollLeft: event.currentTarget.scrollLeft }
+    event.currentTarget.setPointerCapture(event.pointerId)
+    setIsDragging(true)
+  }
+
+  const moveRelatedDrag = (event) => {
+    if (!dragState.current.dragging) return
+    const distance = event.clientX - dragState.current.startX
+    if (Math.abs(distance) > 5) dragState.current.moved = true
+    event.currentTarget.scrollLeft = dragState.current.scrollLeft - distance
+  }
+
+  const endRelatedDrag = (event) => {
+    if (!dragState.current.dragging) return
+    dragState.current.dragging = false
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId)
+    setIsDragging(false)
+  }
 
   return (
     <div>
@@ -168,7 +191,7 @@ function App() {
 
         <section className="related-section" aria-labelledby="related-visas-title">
           <div className="related-heading"><div><p className="section-label">EXPLORE YOUR OPTIONS</p><h2 id="related-visas-title">Related visitor visas</h2><span>Compare other pathways that may suit your travel plans and passport.</span></div><div className="slider-controls"><button type="button" aria-label="Show previous visas" onClick={() => relatedRef.current?.scrollBy({ left: -relatedRef.current.clientWidth * .82, behavior: 'smooth' })}>←</button><button type="button" aria-label="Show next visas" onClick={() => relatedRef.current?.scrollBy({ left: relatedRef.current.clientWidth * .82, behavior: 'smooth' })}>→</button></div></div>
-          <div className="related-track" ref={relatedRef}>{relatedVisas.map((visa) => <article className="related-card" key={visa.subclass}><img src={visa.image} alt="Australian travel destination" loading="lazy" /><div className="related-card-body"><p>{visa.subclass}</p><h3>{visa.title}</h3><span>{visa.description}</span><div><small>{visa.detail}</small><a href="#contact-form" aria-label={`Learn more about ${visa.title}`}>Learn more <b>›</b></a></div></div></article>)}</div>
+          <div className={`related-track ${isDragging ? 'dragging' : ''}`} ref={relatedRef} onPointerDown={startRelatedDrag} onPointerMove={moveRelatedDrag} onPointerUp={endRelatedDrag} onPointerCancel={endRelatedDrag} onClickCapture={(event) => { if (dragState.current.moved) { event.preventDefault(); dragState.current.moved = false } }}>{relatedVisas.map((visa) => <article className="related-card" key={visa.subclass}><img src={visa.image} alt="Australian travel destination" loading="lazy" draggable="false" /><div className="related-card-body"><p>{visa.subclass}</p><h3>{visa.title}</h3><span>{visa.description}</span><div><small>{visa.detail}</small><a href="#contact-form" aria-label={`Learn more about ${visa.title}`}>Learn more <b>›</b></a></div></div></article>)}</div>
         </section>
       </main>
 

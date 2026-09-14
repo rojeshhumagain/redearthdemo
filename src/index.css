@@ -142,8 +142,10 @@ main { max-width:1280px; margin:auto; }
 .slider-controls { display:flex; gap:9px; }
 .slider-controls button { display:grid; place-items:center; width:43px; height:43px; border:1px solid var(--line); border-radius:50%; background:#fff; color:var(--navy); font-size:19px; cursor:pointer; transition:background .16s ease,color .16s ease,border-color .16s ease; }
 .slider-controls button:hover { border-color:var(--navy); background:var(--navy); color:#fff; }
-.related-track { display:flex; gap:22px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; overscroll-behavior-inline:contain; }
+.related-track { display:flex; gap:22px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; overscroll-behavior-inline:contain; cursor:grab; }
 .related-track::-webkit-scrollbar { display:none; }
+.related-track.dragging { cursor:grabbing; scroll-snap-type:none; user-select:none; }
+.related-track.dragging * { pointer-events:none; }
 .related-card { flex:0 0 calc((100% - 44px)/3); min-width:0; overflow:hidden; scroll-snap-align:start; border:1px solid var(--line); border-radius:var(--radius); background:#fff; }
 .related-card img { display:block; width:100%; height:205px; object-fit:cover; }
 .related-card-body { padding:22px; }
