@@ -27,6 +27,20 @@ const faqs = [
   ['How long are SAT scores valid?', 'SAT scores do not strictly expire, although many universities prefer results from tests taken within the last two to five years.'],
 ]
 
+const services = [
+  ['GSM Visa', '189, 190, 476, 887, 491 & 485', '#gsm-visa'],
+  ['Partner Visa', 'Onshore, offshore & prospective marriage', '#partner-visa'],
+  ['Student Visa', 'Student Visa Subclass 500', '#student-visa'],
+  ['Australian Citizenship', 'Citizenship applications & guidance', '#citizenship'],
+  ['Protection Visa', 'Permanent Protection Visa Subclass 866', '#protection-visa'],
+  ['Appeals & Reviews', 'PIC 4020, refusals & cancellations', '#appeals-reviews'],
+  ['Business Migration', '188, 888 & Business Talent streams', '#business-migration'],
+  ['Employer Sponsored Visa', '482, 186 & 187 employer pathways', '#employer-sponsored'],
+  ['Parent Visa', '804, 838/114, contributory & 103', '#parent-visa'],
+  ['Visitor Visa', '417, 601, 462, 651 & 600', '#visitor-visa'],
+  ['Other Visas', '858, 101, 155/157 & 444', '#other-visas'],
+]
+
 function Chevron() {
   return <span className="chevron">⌄</span>
 }
@@ -62,15 +76,29 @@ function InfoTable({ rows }) {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
   const [faqOpen, setFaqOpen] = useState(0)
 
   return (
     <div>
-      <div className="utility"><div className="utility-inner"><a href="#advice">Advice</a><a className="pill" href="#contact">Contact Us</a><a className="pill" href="#consultation">Book an Appointment</a><button className="region">◎ &nbsp; Global <Chevron /></button></div></div>
+      <div className="utility"><div className="utility-inner"><a href="tel:+61861619239">☎ &nbsp;(08) 6161 9239</a><a href="mailto:info@redearthmigration.com.au">✉ &nbsp;info@redearthmigration.com.au</a><a className="pill" href="#consultation">Book an Appointment</a></div></div>
       <header className="header">
         <a className="logo" href="#top"><img src="/red-earth-logo.png" alt="Red Earth Education and Migration Agents" /></a>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">{menuOpen ? '✕' : '☰'}</button>
-        <nav className={menuOpen ? 'open' : ''}>{['Study Abroad', 'Destinations', 'Courses', 'Exams', 'Scholarships', 'Application', 'Student Services'].map((item) => <a href={`#${item.toLowerCase().replaceAll(' ', '-')}`} key={item}>{item} <Chevron /></a>)}</nav>
+        <nav className={menuOpen ? 'open' : ''} aria-label="Main navigation">
+          <a href="#top">Home</a>
+          <a href="#about-us">About Us</a>
+          <div className={`nav-service ${servicesOpen ? 'expanded' : ''}`}>
+            <button type="button" aria-expanded={servicesOpen} onClick={() => setServicesOpen(!servicesOpen)}>Services <Chevron /></button>
+            <div className="services-menu">
+              <div className="services-heading"><div><small>OUR EXPERTISE</small><strong>Australian visa & migration services</strong></div><a href="#all-services">View all services <b>›</b></a></div>
+              <div className="services-grid">{services.map(([title, detail, href]) => <a href={href} key={title} onClick={() => { setServicesOpen(false); setMenuOpen(false) }}><span>{title.charAt(0)}</span><div><strong>{title}</strong><small>{detail}</small></div><b>›</b></a>)}</div>
+            </div>
+          </div>
+          <a href="#immigration-news">Immigration News</a>
+          <a href="#client-area">Client Area</a>
+          <a className="nav-contact" href="#consultation">Contact Us</a>
+        </nav>
       </header>
 
       <main id="top">
