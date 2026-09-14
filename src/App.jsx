@@ -82,6 +82,7 @@ function EnquiryForm() {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('overview')
   const [faqOpen, setFaqOpen] = useState(0)
 
   return (
@@ -112,7 +113,7 @@ function App() {
         </section>
 
         <div className="page-layout">
-          <aside className="page-nav"><p>ON THIS PAGE</p><nav><a href="#overview">Visa overview</a><a href="#evisitor">eVisitor passports</a><a href="#eta">ETA passports</a><a href="#problems">Common problems</a><a href="#faq">Frequently asked questions</a><a href="#contact-form">Contact our team</a></nav></aside>
+          <aside className="page-nav"><p>ON THIS PAGE</p><nav>{[['overview', 'Visa overview'], ['evisitor', 'eVisitor passports'], ['eta', 'ETA passports'], ['problems', 'Common problems'], ['faq', 'Frequently asked questions'], ['contact-form', 'Contact our team']].map(([id, label]) => <a className={activeSection === id ? 'active' : ''} href={`#${id}`} onClick={() => setActiveSection(id)} key={id}>{label}<span>›</span></a>)}</nav></aside>
 
           <article className="visa-content">
             <section id="overview"><p className="section-label">VISA OVERVIEW</p><h2>Visit Australia with flexibility</h2><p>Both the ETA and eVisitor visa allow you to stay in Australia for up to three months at a time, at any point during the 12 months after visa grant. You need to leave Australia every three months, but you can return immediately and do this as many times as you like while the visa remains valid.</p><div className="notice"><span>i</span><p><strong>Important conditions</strong>You cannot work on this visa and you cannot study for longer than three months.</p></div></section>
