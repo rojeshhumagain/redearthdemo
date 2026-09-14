@@ -104,7 +104,7 @@ main { max-width:1280px; margin:auto; }
 .faq button[aria-expanded='true'] b { border:0; color:var(--red); }
 .faq>p { max-width:690px; margin:0; padding:0 42px 24px 4px; border:0; background:transparent; color:#202b34; font-size:16px; line-height:1.75; }
 .visa-sidebar { position:sticky; top:25px; display:flex; flex-direction:column; gap:16px; }
-.visa-details { overflow:hidden; border:0; border-top:4px solid var(--red); border-radius:var(--radius); background:var(--navy-soft); box-shadow:none; }
+.visa-details { overflow:hidden; border:0; border-radius:var(--radius); background:var(--navy-soft); box-shadow:none; }
 .visa-details>p { margin:0; padding:22px 21px 3px; color:var(--red); font-size:11px; font-weight:900; letter-spacing:.1em; }
 .visa-details h2 { margin:0; padding:0 21px 18px; color:var(--navy); font-size:24px; }
 .visa-details dl { margin:0; }
@@ -118,7 +118,7 @@ main { max-width:1280px; margin:auto; }
 .agent-card p { color:#27343e; font-size:15px; line-height:1.65; }
 .agent-card a { color:var(--red); font-size:14px; font-weight:900; }
 #contact-form { scroll-margin-top:25px; margin:20px 0 80px; }
-.enquiry-form { padding:48px; border:0; border-top:5px solid var(--red); border-radius:var(--radius); background:var(--navy-soft); box-shadow:none; }
+.enquiry-form { padding:48px; border:0; border-radius:var(--radius); background:var(--navy-soft); box-shadow:none; }
 .form-heading { max-width:660px; margin-bottom:30px; }
 .form-heading p { margin:0; color:var(--red); font-size:10px; font-weight:800; letter-spacing:.11em; }
 .form-heading h2 { margin:6px 0; color:var(--navy); font-size:30px; }
