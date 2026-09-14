@@ -189,6 +189,22 @@ main { max-width:1280px; margin:auto; }
 .hero-foundation { padding:28px max(30px,calc((100vw - 1280px)/2)); display:flex; align-items:center; justify-content:space-between; gap:30px; background:var(--navy); color:#fff; }
 .hero-foundation p { margin:0; font-size:15px; }
 .hero-foundation a { flex-shrink:0; color:#fff; font-size:13px; font-weight:900; border-bottom:1px solid #fff; }
+.home-trust { max-width:1280px; margin:0 auto; padding:112px 0 118px; }
+.trust-intro { display:grid; grid-template-columns:.92fr 1.08fr; gap:110px; padding-bottom:72px; border-bottom:1px solid var(--line); }
+.trust-title>p { margin:0 0 17px; color:var(--red); font-size:11px; font-weight:900; letter-spacing:.13em; }
+.trust-title h2 { max-width:520px; margin:0; color:var(--navy); font-size:46px; line-height:1.12; letter-spacing:-1.3px; font-weight:900; }
+.trust-copy { padding-top:30px; }
+.trust-copy>p { margin:0; color:#202d37; font-size:18px; line-height:1.75; }
+.trust-copy>strong { display:block; margin-top:24px; color:var(--navy); font-size:17px; line-height:1.65; }
+.trust-copy>a { display:inline-flex; align-items:center; gap:10px; margin-top:29px; padding-bottom:5px; border-bottom:2px solid var(--red); color:var(--red); font-size:13px; font-weight:900; }
+.trust-copy>a span { font-size:18px; line-height:1; }
+.trust-evidence { display:grid; grid-template-columns:repeat(4,1fr); padding-top:48px; }
+.trust-evidence>div { min-width:0; padding:0 30px; border-left:1px solid var(--line); }
+.trust-evidence>div:first-child { padding-left:0; border-left:0; }
+.trust-evidence>div:last-child { padding-right:0; }
+.trust-evidence strong { display:block; color:var(--red); font-size:34px; line-height:1.1; font-weight:900; letter-spacing:-.7px; }
+.trust-evidence span { display:block; margin-top:7px; color:var(--navy); font-size:15px; font-weight:900; }
+.trust-evidence p { margin:12px 0 0; color:#3c4954; font-size:13px; line-height:1.65; }
 footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red); }
 .footer-main { max-width:1280px; margin:auto; padding:55px 0; display:grid; grid-template-columns:1.4fr 1.4fr .8fr 1fr; gap:55px; }
 .footer-main img { width:220px; padding:8px; border-radius:5px; background:#fff; }
@@ -224,6 +240,10 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
   .hero-pathway { margin:0 25px; grid-template-columns:280px 1fr; }
   .pathway-heading { padding-left:20px; }
   .pathway-options span { display:none; }
+  .home-trust { padding:90px 25px 95px; }
+  .trust-intro { gap:60px; }
+  .trust-title h2 { font-size:39px; }
+  .trust-evidence>div { padding:0 20px; }
 }
 
 @media (max-width:820px) {
@@ -273,6 +293,12 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
   .pathway-options>a { border-left:0; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
   .pathway-options>a:nth-child(even) { border-right:0; }
   .pathway-options span { display:block; }
+  .home-trust { padding:75px 18px 80px; }
+  .trust-intro { grid-template-columns:1fr; gap:25px; padding-bottom:52px; }
+  .trust-copy { max-width:680px; padding-top:0; }
+  .trust-evidence { grid-template-columns:1fr 1fr; gap:38px 0; }
+  .trust-evidence>div,.trust-evidence>div:first-child { padding:0 22px; border-left:1px solid var(--line); }
+  .trust-evidence>div:nth-child(odd) { padding-left:0; border-left:0; }
 }
 
 @media (max-width:520px) {
@@ -317,4 +343,10 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
   .pathway-options { grid-template-columns:1fr; }
   .pathway-options>a,.pathway-options>a:nth-child(even) { border-right:0; }
   .hero-foundation { align-items:flex-start; flex-direction:column; padding:25px 18px; }
+  .home-trust { padding-top:64px; }
+  .trust-title h2 { font-size:35px; letter-spacing:-.8px; }
+  .trust-copy>p { font-size:17px; }
+  .trust-evidence { grid-template-columns:1fr; gap:0; padding-top:35px; }
+  .trust-evidence>div,.trust-evidence>div:first-child,.trust-evidence>div:nth-child(odd) { padding:25px 0; border-left:0; border-bottom:1px solid var(--line); }
+  .trust-evidence>div:last-child { border-bottom:0; }
 }
