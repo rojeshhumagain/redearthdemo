@@ -51,6 +51,22 @@ export default function HomePage() {
             <div><strong>11</strong><span>Migration service areas</span><p>From student and skilled pathways to family, business and reviews.</p></div>
           </div>
         </section>
+
+        <section className="home-services" id="all-services" aria-labelledby="services-title">
+          <div className="home-services-inner">
+            <div className="service-intro"><p>HOW WE CAN HELP</p><h2 id="services-title">One team. Two kinds of support. <span>A clearer way forward.</span></h2><div><p>Education decisions and migration decisions often overlap. We bring both conversations together, so the advice you receive considers what happens now and what may come next.</p><a href="#home-consultation">Tell us about your plans <b>›</b></a></div></div>
+
+            <article className="service-story" id="student-visa">
+              <figure><img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1400&q=86" alt="Australian university campus viewed across the water" loading="lazy" /><figcaption>Education Services</figcaption></figure>
+              <div className="service-story-copy"><p>01 &nbsp; EDUCATION SERVICES</p><h3>Choose your study direction with the full journey in mind.</h3><span>From comparing courses to preparing a student visa application, we help you understand your options and make informed decisions at every stage.</span><ul><li>Course and institution guidance</li><li>Student Visa Subclass 500 support</li><li>Application and document preparation</li><li>Study pathway and future planning</li></ul><a href="#education-services">Explore education services <b>›</b></a></div>
+            </article>
+
+            <article className="service-story reverse" id="skilled-migration">
+              <figure><img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1400&q=86" alt="Sydney Harbour and Opera House at dusk" loading="lazy" /><figcaption>Migration Services</figcaption></figure>
+              <div className="service-story-copy"><p>02 &nbsp; MIGRATION SERVICES</p><h3>Approach your visa pathway with a plan built around you.</h3><span>We assess your circumstances, explain the available pathways and support you through careful preparation and lodgement.</span><ul><li>Skilled and employer-sponsored visas</li><li>Partner, parent and family visas</li><li>Visitor, business and protection visas</li><li>Appeals, reviews and citizenship</li></ul><a href="#migration-services">Explore migration services <b>›</b></a></div>
+            </article>
+          </div>
+        </section>
       </main>
     </div>
   )
