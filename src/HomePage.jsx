@@ -38,6 +38,14 @@ const processSteps = [
   ['Support', 'We keep communication clear, help respond to requests and explain what comes next as the matter progresses.'],
 ]
 
+const approachPrinciples = [
+  ['We listen before we recommend', 'Your circumstances, priorities and concerns shape the conversation. We begin with questions, not assumptions.'],
+  ['We explain the difficult parts', 'Requirements, risks and alternatives are discussed in clear language so you can make an informed decision.'],
+  ['We prepare with care', 'Details matter. We help organise evidence, review information and identify gaps before they become avoidable problems.'],
+  ['We connect the bigger picture', 'Where relevant, education choices and migration planning are considered together rather than as isolated decisions.'],
+  ['We stay accountable', 'You receive clear next steps and straightforward communication as your matter moves through each stage.'],
+]
+
 function VisaPathwayFinder() {
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState([])
@@ -66,6 +74,19 @@ function VisaPathwayFinder() {
           <div className="finder-progress"><span>{complete ? 'Your starting point' : `Question ${step + 1} of ${finderQuestions.length}`}</span><div><i style={{ width: `${complete ? 100 : ((step + 1) / finderQuestions.length) * 100}%` }} /></div></div>
           {!complete ? <><h3>{finderQuestions[step].prompt}</h3><div className="finder-options">{finderQuestions[step].options.map(([value, label, detail]) => <button type="button" onClick={() => chooseAnswer(value)} key={value}><span><strong>{label}</strong><small>{detail}</small></span><b>›</b></button>)}</div>{step > 0 && <button className="finder-back" type="button" onClick={goBack}>← Back</button>}</> : <div className="finder-result"><p>RECOMMENDED CATEGORY</p><h3>{result[0]}</h3><span>{result[1]}</span><dl><div><dt>Your goal</dt><dd>{finderQuestions[0].options.find(([value]) => value === answers[0])?.[1]}</dd></div><div><dt>Current location</dt><dd>{finderQuestions[1].options.find(([value]) => value === answers[1])?.[1]}</dd></div><div><dt>Sponsor</dt><dd>{finderQuestions[2].options.find(([value]) => value === answers[2])?.[1]}</dd></div></dl><div className="finder-result-actions"><a href={result[2]}>Explore this pathway <b>›</b></a><button type="button" onClick={restart}>Start again</button></div></div>}
         </div>
+      </div>
+    </section>
+  )
+}
+
+function ApproachSection() {
+  const [openPrinciple, setOpenPrinciple] = useState(0)
+
+  return (
+    <section className="home-approach" aria-labelledby="approach-title">
+      <div className="approach-inner">
+        <figure className="approach-visual"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=86" alt="Professional adviser meeting with clients" loading="lazy" /><figcaption><span>Personal guidance</span><strong>Clarity at every stage</strong></figcaption></figure>
+        <div className="approach-content"><p>THE RED EARTH APPROACH</p><h2 id="approach-title">Professional support should still feel personal.</h2><span className="approach-lead">Our role is not simply to process information. It is to help you understand the decisions in front of you and prepare for them with confidence.</span><div className="approach-list">{approachPrinciples.map(([title, description], index) => <div className="approach-item" key={title}><button type="button" onClick={() => setOpenPrinciple(openPrinciple === index ? -1 : index)} aria-expanded={openPrinciple === index}><span>{String(index + 1).padStart(2, '0')}</span><strong>{title}</strong><b>{openPrinciple === index ? '−' : '+'}</b></button>{openPrinciple === index && <p>{description}</p>}</div>)}</div></div>
       </div>
     </section>
   )
@@ -138,6 +159,8 @@ export default function HomePage() {
           <div className="process-steps">{processSteps.map(([title, description], index) => <article key={title}><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
           <div className="process-close"><strong>Every matter is different.</strong><p>Your pathway, documentation and timing will be assessed against your individual circumstances.</p><a href="#home-consultation">Start a conversation <b>›</b></a></div>
         </section>
+
+        <ApproachSection />
       </main>
     </div>
   )
