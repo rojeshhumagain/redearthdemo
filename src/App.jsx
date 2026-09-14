@@ -1,32 +1,5 @@
 import { useState } from 'react'
 
-const toc = [
-  ['what-is-sat', 'What is the SAT Exam?'],
-  ['highlights', 'Digital SAT Exam Highlights'],
-  ['eligibility', 'Digital SAT Exam Eligibility'],
-  ['fees', 'Digital SAT Exam Fee 2026'],
-  ['registration', 'Digital SAT Exam Registration 2026'],
-  ['dates', 'SAT Exam Dates and Deadlines 2026'],
-  ['syllabus', 'What is the SAT Exam Syllabus?'],
-  ['scores', 'Digital SAT Results and Scores'],
-  ['prepare', 'How to Prepare for the SAT Exam?'],
-]
-
-const takeaways = [
-  'The Digital SAT is a 2 hour 14 minute online test with two sections: Reading and Writing (64 minutes, 54 questions) and Mathematics (70 minutes, 44 questions), scored out of 1,600.',
-  'International students pay US $68 registration fee plus US $43 international fee, with additional charges for selected test services.',
-  'The SAT uses multistage adaptive testing, meaning the difficulty of your second module adjusts based on your first module performance.',
-  'The test does not penalise incorrect or unanswered questions, and all test-takers have access to the Desmos graphing calculator.',
-]
-
-const faqs = [
-  ['What is the full form of the SAT exam?', 'SAT originally stood for Scholastic Assessment Test. Today, it is officially referred to simply as the SAT, a standardised digital test used for undergraduate admissions primarily in the US and Canada.'],
-  ['Who is eligible to take the SAT Exam?', 'The College Board does not set restrictions regarding age, grade or educational background. Students planning undergraduate study can register and take the test.'],
-  ['What is the SAT Exam syllabus?', 'The SAT has two sections: Reading and Writing, and Mathematics. It covers grammar, vocabulary, algebra, advanced math, data analysis, problem-solving, geometry and trigonometry.'],
-  ['How can I register for the SAT exam?', 'Create a College Board account, select a test centre and date, complete your details, upload a photograph and pay the registration fee.'],
-  ['How long are SAT scores valid?', 'SAT scores do not strictly expire, although many universities prefer results from tests taken within the last two to five years.'],
-]
-
 const services = [
   ['GSM Visa', '189, 190, 476, 887, 491 & 485', '#gsm-visa'],
   ['Partner Visa', 'Onshore, offshore & prospective marriage', '#partner-visa'],
@@ -41,37 +14,69 @@ const services = [
   ['Other Visas', '858, 101, 155/157 & 444', '#other-visas'],
 ]
 
+const eVisitorCountries = [
+  ['Andorra', 'Greece', 'Norway'], ['Austria', 'Hungary', 'Poland'], ['Belgium', 'Iceland', 'Portugal'],
+  ['Bulgaria', 'Ireland', 'Romania'], ['Croatia', 'Italy', 'San Marino'], ['Cyprus', 'Latvia', 'Slovak Republic'],
+  ['Czech Republic', 'Liechtenstein', 'Slovenia'], ['Denmark', 'Lithuania', 'Spain'], ['Estonia', 'Luxembourg', 'Sweden'],
+  ['Finland', 'Malta', 'Switzerland'], ['France', 'Monaco', 'United Kingdom (UK citizens only)'],
+  ['Germany', 'The Netherlands', 'Vatican City'],
+]
+
+const etaCountries = [
+  ['Andorra', 'Iceland', 'Norway'], ['Austria', 'Ireland', 'Portugal'], ['Belgium', 'Italy', 'San Marino'],
+  ['Brunei', 'Japan', 'Singapore'], ['Canada', 'Republic of Korea', 'Spain'], ['Denmark', 'Liechtenstein', 'Switzerland'],
+  ['Finland', 'Luxembourg', 'Sweden'], ['France', 'Malaysia', 'Taiwan'],
+  ['Germany', 'Malta', 'United Kingdom / British National Overseas'], ['Greece', 'Monaco', 'United States of America'],
+  ['Hong Kong SAR', 'The Netherlands', 'Vatican City'],
+]
+
+const faqs = [
+  ['Where can I apply from?', 'You must be outside Australia when you apply for an Electronic Travel Authority or eVisitor visa.'],
+  ['Where can I receive the visa?', 'You must be outside Australia when the visa is decided and granted. It is electronically linked to your passport.'],
+  ['What family members can I include?', 'Family members cannot be included in one application. Each traveller, including children, must hold their own visa.'],
+  ['Can the health requirement be waived for this visa?', 'The health requirement applies. Depending on your circumstances, you may be asked to complete a health assessment before travelling.'],
+  ['How long does this visa last for?', 'The visa is generally valid for 12 months from grant. You may visit multiple times and stay for up to three months on each visit.'],
+]
+
+const recentPosts = [
+  ['In-Demand Courses in Australia 2026: What Should Onshore Students Study Next?', '04 September'],
+  ['Already in Australia? Why 2026 Could Be the Year to Reassess Your PR Pathway', '29 August'],
+  ['Australia PR in 2026: Why Having the Right Occupation Is No Longer Enough', '22 August'],
+]
+
 function Chevron() {
   return <span className="chevron">⌄</span>
 }
 
-function ConsultationForm({ compact = false }) {
-  const [submitted, setSubmitted] = useState(false)
+function CountryTable({ rows, emphasise = [] }) {
   return (
-    <form className={`consultation ${compact ? 'compact' : ''}`} onSubmit={(event) => { event.preventDefault(); setSubmitted(true) }}>
-      <h2>Plan your SAT exam strategy with our study abroad experts</h2>
-      <div className="rating"><b className="google">G</b><span>★★★★★</span><strong>4.85</strong><small>(19,027 reviews)</small></div>
-      {submitted ? (
-        <div className="success"><span>✓</span><h3>Thank you!</h3><p>Our study abroad expert will contact you shortly.</p></div>
+    <div className="country-table" role="table">
+      {rows.flat().map((country) => <div role="cell" className={emphasise.includes(country) ? 'emphasise' : ''} key={country}>{country}</div>)}
+    </div>
+  )
+}
+
+function EnquiryForm() {
+  const [sent, setSent] = useState(false)
+  return (
+    <form className="enquiry-form" onSubmit={(event) => { event.preventDefault(); setSent(true) }}>
+      {sent ? (
+        <div className="form-success"><span>✓</span><h3>Thank you for your enquiry</h3><p>One of our registered migration professionals will contact you shortly.</p></div>
       ) : (
         <>
-          <input aria-label="Full name" placeholder="Full Name *" required />
-          <div className="phone-row"><button type="button" className="select-button">Dial Code <Chevron /></button><input aria-label="Mobile number" placeholder="Mobile Number*" required /></div>
-          <input aria-label="Email" type="email" placeholder="Email ID *" required />
-          <button type="button" className="select-button full">Which year do you want to start?* <Chevron /></button>
-          <button type="button" className="select-button full muted">When do you plan to start?* <Chevron /></button>
-          <label className="interest-label">Interested in? <i>*</i></label>
-          <button type="button" className="select-button full">SAT <Chevron /></button>
-          <label className="consent"><input type="checkbox" defaultChecked /> <span>I agree to Red Earth's <a href="#privacy">Privacy Policy</a> and <a href="#terms">Terms and Conditions</a> *</span></label>
-          <button className="primary" type="submit">Get SAT Guidance Now <b>›</b></button>
+          <div className="form-heading"><p>START A CONVERSATION</p><h2>Talk to a migration professional</h2><span>Tell us a little about your situation and our team will be in touch.</span></div>
+          <div className="form-grid">
+            <label><span>Name <b>*</b></span><input required placeholder="Your full name" /></label>
+            <label><span>Email address <b>*</b></span><input required type="email" placeholder="you@example.com" /></label>
+            <label><span>Phone number <b>*</b></span><input required type="tel" placeholder="Your contact number" /></label>
+            <label><span>Service required</span><select defaultValue="Visitor Visa"><option>Student Visa</option><option>General Skilled Migration</option><option>Partner Visa</option><option>Parent Visa</option><option>Child Visa</option><option>Visitor Visa</option><option>Employer Sponsored Visa</option><option>Appeals & Reviews</option><option>Humanitarian & Refugee</option><option>Business Migration</option><option>Citizenship</option><option>Others</option></select></label>
+            <label className="message-field"><span>Message</span><textarea rows="5" placeholder="How can we help?" /></label>
+          </div>
+          <button className="primary-button" type="submit">Submit enquiry <b>›</b></button>
         </>
       )}
     </form>
   )
-}
-
-function InfoTable({ rows }) {
-  return <div className="table-wrap"><table><tbody>{rows.map((row) => <tr key={row[0]}>{row.map((cell) => <td key={cell}>{cell}</td>)}</tr>)}</tbody></table></div>
 }
 
 function App() {
@@ -81,13 +86,12 @@ function App() {
 
   return (
     <div>
-      <div className="utility"><div className="utility-inner"><a href="tel:+61861619239">☎ &nbsp;(08) 6161 9239</a><a href="mailto:info@redearthmigration.com.au">✉ &nbsp;info@redearthmigration.com.au</a><a className="pill" href="#consultation">Book an Appointment</a></div></div>
+      <div className="utility"><div className="utility-inner"><a href="tel:+61861619239">☎ &nbsp;(08) 6161 9239</a><a href="mailto:info@redearthmigration.com.au">✉ &nbsp;info@redearthmigration.com.au</a><a className="appointment" href="#contact-form">Book an Appointment</a></div></div>
       <header className="header">
         <a className="logo" href="#top"><img src="/red-earth-logo.png" alt="Red Earth Education and Migration Agents" /></a>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">{menuOpen ? '✕' : '☰'}</button>
         <nav className={menuOpen ? 'open' : ''} aria-label="Main navigation">
-          <a href="#top">Home</a>
-          <a href="#about-us">About Us</a>
+          <a href="#top">Home</a><a href="#about-us">About Us</a>
           <div className={`nav-service ${servicesOpen ? 'expanded' : ''}`}>
             <button type="button" aria-expanded={servicesOpen} onClick={() => setServicesOpen(!servicesOpen)}>Services <Chevron /></button>
             <div className="services-menu">
@@ -95,61 +99,46 @@ function App() {
               <div className="services-grid">{services.map(([title, detail, href]) => <a href={href} key={title} onClick={() => { setServicesOpen(false); setMenuOpen(false) }}><span>{title.charAt(0)}</span><div><strong>{title}</strong><small>{detail}</small></div><b>›</b></a>)}</div>
             </div>
           </div>
-          <a href="#immigration-news">Immigration News</a>
-          <a href="#client-area">Client Area</a>
-          <a className="nav-contact" href="#consultation">Contact Us</a>
+          <a href="#immigration-news">Immigration News</a><a href="#client-area">Client Area</a><a className="nav-contact" href="#contact-form">Contact Us</a>
         </nav>
       </header>
 
       <main id="top">
-        <div className="breadcrumbs"><a href="#home">⌂ Home</a><span>›</span><a href="#exams">Exams</a><span>›</span><b>Sat</b></div>
-        <div className="hero-grid">
-          <div className="hero-copy">
-            <h1>SAT Exam Guide 2026 for International Students</h1>
-            <p className="lead">Here is a detailed guide for the SAT exam, outlining important topics like the SAT eligibility criteria, registration process, SAT exam fees, dates, SAT syllabus and scoring mechanism, and preparation tips to help you score high.</p>
-            <div className="meta"><span>by <a href="#author">Bindu Mary Idicula</a></span><span>◷ &nbsp;23rd Apr 2026</span><span>▤ &nbsp;17 mins read</span><span>⊙ &nbsp;189K views</span></div>
-            <div className="share-row"><button><b>G</b> Add Red Earth on Google</button><span>Share <b className="share-icon">⌯</b></span></div>
-            <img className="hero-image" src="https://static.aeccglobal.com/study_abroad_exams_4de081cc28.webp" alt="Students preparing to study abroad" />
-          </div>
-          <aside id="consultation"><ConsultationForm /></aside>
-        </div>
+        <div className="breadcrumbs"><a href="#home">Home</a><span>›</span><a href="#visitor-visa">Visitor Visa</a><span>›</span><b>Subclass 601</b></div>
 
-        <div className="article-grid">
-          <aside className="toc"><div className="toc-title"><span>▱</span><div><strong>On this Page</strong><small>9 sections</small></div></div><div className="toc-links">{toc.map(([id, title]) => <a href={`#${id}`} key={id}>{title}</a>)}</div></aside>
-          <article className="article">
-            <section className="key-takeaways"><p className="eyebrow">◆ &nbsp; KEY TAKEAWAYS</p><h2>What you'll learn in this article</h2>{takeaways.map((item) => <div className="takeaway" key={item}><span>✓</span><p>{item}</p></div>)}</section>
+        <section className="visa-hero">
+          <div className="visa-hero-copy"><p className="kicker">VISITOR VISA</p><h1>Electronic Travel Authority <span>Subclass 601</span></h1><p>If you want to visit Australia and have the right passport, you’re in luck. The Electronic Travel Authority is one of the easiest pathways for eligible visitors, with no application fee and many visas granted within minutes or hours.</p><div className="hero-actions"><a className="primary-button" href="#contact-form">Check your eligibility <b>›</b></a><a className="text-link" href="tel:+61861619239">Call (08) 6161 9239</a></div></div>
+          <div className="hero-facts"><div><span>601</span><small>Visa subclass</small></div><div><span>12</span><small>Months validity</small></div><div><span>3</span><small>Months per visit</small></div><div><span>$0</span><small>Application fee</small></div></div>
+        </section>
 
-            <p>Did you know that even though most US universities are test-optional, submitting your SAT exam scores can improve your application? These scores can give admission committees a greater insight into your academic potential and preparedness.</p>
-            <p>The SAT exam has long been used to enrol prospective students, both domestic and international, to undergraduate programmes across the US and Canada. Through this guide, we discuss everything you need to know before applying to universities and colleges this year.</p>
+        <div className="page-layout">
+          <aside className="page-nav"><p>ON THIS PAGE</p><nav><a href="#overview">Visa overview</a><a href="#evisitor">eVisitor passports</a><a href="#eta">ETA passports</a><a href="#problems">Common problems</a><a href="#faq">Frequently asked questions</a><a href="#contact-form">Contact our team</a></nav></aside>
 
-            <section id="what-is-sat"><h2>What is the SAT Exam?</h2><p>The latest and only version of the SAT, called the Digital SAT exam, is a 2-hour and 14-minute standardised test split into two main sections: Reading and Writing, and Mathematics. The Reading and Writing section is 64 minutes, while Mathematics is 70 minutes.</p><p>Offered as an online standardised test at a proctored test centre, the Digital SAT does not penalise candidates for incorrect or unanswered questions. The exam is scored out of 1,600, with each section scored on a scale of 200–800.</p></section>
+          <article className="visa-content">
+            <section id="overview"><p className="section-label">VISA OVERVIEW</p><h2>Visit Australia with flexibility</h2><p>Both the ETA and eVisitor visa allow you to stay in Australia for up to three months at a time, at any point during the 12 months after visa grant. You need to leave Australia every three months, but you can return immediately and do this as many times as you like while the visa remains valid.</p><div className="notice"><span>i</span><p><strong>Important conditions</strong>You cannot work on this visa and you cannot study for longer than three months.</p></div></section>
 
-            <section id="highlights"><h3>Digital SAT Exam Highlights</h3><p>Get a quick understanding of the important details regarding the SAT exam.</p><InfoTable rows={[["Feature", "Reading & Writing", "Mathematics"], ["Total Duration", "64 minutes", "70 minutes"], ["Number of Questions", "54 questions", "44 questions"], ["Question Types", "Multiple choice", "MCQ + student-produced"], ["Content Area", "Craft, ideas & conventions", "Algebra, data & geometry"]]} /></section>
+            <section id="evisitor"><p className="section-label">PASSPORT ELIGIBILITY</p><h2>eVisitor-eligible passports</h2><p>People holding passports from the following countries may be eligible for an eVisitor visa.</p><CountryTable rows={eVisitorCountries} /></section>
 
-            <div className="inline-cta"><div><small>FREE 1:1 SESSION</small><h3>Build your SAT strategy with an expert</h3></div><a href="#consultation">Book Free Consultation <b>›</b></a></div>
+            <section id="eta"><p className="section-label">PASSPORT ELIGIBILITY</p><h2>ETA-eligible passports</h2><p>People holding passports from the following countries may be eligible for an Electronic Travel Authority. Countries shown in red are ETA-only and are not eligible for eVisitor.</p><CountryTable rows={etaCountries} emphasise={['Brunei', 'Japan', 'Singapore', 'Canada', 'Republic of Korea', 'Malaysia', 'Taiwan', 'United Kingdom / British National Overseas', 'United States of America', 'Hong Kong SAR']} /></section>
 
-            <section id="eligibility"><h2>Digital SAT Exam Eligibility</h2><p>As an entrance exam to undergraduate courses offered by top-ranking universities in the USA and Canada, the SAT does not specify particular academic requirements. Candidates need to register, pay the applicable international test fees and appear on the scheduled date under College Board regulations.</p></section>
+            <section id="problems"><p className="section-label">BEFORE YOU APPLY</p><h2>Common problems for applicants</h2><div className="problem-list"><div><span>01</span><p><strong>No paid work</strong>Electronic visitor visas include a no-work condition. You cannot undertake paid employment while in Australia.</p></div><div><span>02</span><p><strong>Three-month stay limit</strong>If you remain longer than three months without leaving, your visa will expire and you may become unlawful.</p></div><div><span>03</span><p><strong>Health requirements</strong>You may need a health assessment before travelling if you disclose a health condition in your application.</p></div><div><span>04</span><p><strong>Personal history</strong>Recent extended stays, criminal convictions or a negative immigration history may delay the process or affect the outcome.</p></div></div><div className="warning"><strong>Always know your visa expiry date and conditions.</strong><p>Letting a visa expire without applying for a new one can have serious consequences, even if you attempt to apply the following day.</p></div></section>
 
-            <section id="fees"><h2>Digital SAT Exam Fee 2026</h2><p>International students should account for registration and additional service charges before completing their application.</p><InfoTable rows={[["Charge / Cost", "SAT Fees (USD)"], ["SAT Registration Fee", "US $68"], ["International Fee", "US $43"], ["Test Centre Fee (select locations)", "US $24"], ["Changing Test Centre", "US $34"], ["Late Registration Fee", "US $38"]]} /></section>
+            <section className="help-panel"><p className="section-label">RED EARTH MIGRATION CAN HELP</p><h2>Unsure whether you qualify?</h2><p>Get clear advice about ETA and eVisitor eligibility, visa conditions and further pathways to Australia from an experienced migration professional.</p><a className="primary-button" href="#contact-form">Schedule a consultation <b>›</b></a></section>
 
-            <section id="registration"><h2>Digital SAT Exam Registration 2026</h2><p>Students planning to attempt the SAT outside the USA can follow this registration process:</p><ul><li><strong>Find multiple testing locations:</strong> Search verified centres through your MySAT account.</li><li><strong>Select the preferred date:</strong> Choose a date with enough preparation and score-reporting time.</li><li><strong>Complete the registration:</strong> Enter details exactly as shown on your official documents.</li><li><strong>Submit your photograph:</strong> Upload a clear image that meets College Board specifications.</li><li><strong>Complete payment:</strong> Pay by credit or debit card and download your admission ticket.</li></ul></section>
-
-            <section id="dates"><h2>SAT Exam Dates and Deadlines 2026</h2><p>Upcoming test dates and registration deadlines include:</p><InfoTable rows={[["SAT Test Date", "Registration Deadline", "Late Deadline"], ["2 May 2026", "17 April 2026", "21 April 2026"], ["6 June 2026", "22 May 2026", "26 May 2026"]]} /></section>
-
-            <section id="syllabus"><h2>What is the SAT Exam Syllabus?</h2><p>The Digital SAT consists of Reading and Writing, and Mathematics. The updated test replaces long passages with shorter passages and includes an adaptive second module based on your first-module performance.</p><h3>SAT Reading and Writing Section</h3><p>This section evaluates Craft and Structure, Information and Ideas, Standard English Conventions and Expression of Ideas across literature, history, science and humanities.</p><h3>SAT Math Section</h3><p>Mathematics assesses algebra, advanced math, problem-solving and data analysis, geometry and trigonometry. Approximately 75% is multiple choice and 25% uses student-produced responses.</p></section>
-
-            <section id="scores"><h2>Digital SAT Results and Scores</h2><p>SAT scores are generally available within two to four weeks. Students access them through their College Board account and can download a PDF score report.</p><ul><li>Total SAT Score: 400–1,600</li><li>Reading and Writing Score: 200–800</li><li>Math Score: 200–800</li></ul></section>
-
-            <section id="prepare"><h2>How to Prepare for the SAT Exam?</h2><ul><li><strong>Download the Bluebook App</strong> and become familiar with its interface.</li><li><strong>Attempt a timed practice test</strong> to understand the adaptive model.</li><li><strong>Use official material</strong> from College Board and Khan Academy.</li><li><strong>Train with the Desmos Calculator</strong> and learn useful shortcuts.</li><li><strong>Review every incorrect answer</strong> and complete a device check before test day.</li></ul></section>
-
-            <section className="faq-section"><p className="eyebrow">COMMON QUESTIONS</p><h2>SAT Exam FAQs</h2>{faqs.map(([question, answer], index) => <div className="faq" key={question}><button onClick={() => setFaqOpen(faqOpen === index ? -1 : index)}><span>{question}</span><b>{faqOpen === index ? '−' : '+'}</b></button>{faqOpen === index && <p>{answer}</p>}</div>)}</section>
+            <section id="faq" className="faq-section"><p className="section-label">HELP & GUIDANCE</p><h2>ETA & eVisitor visa applicant FAQs</h2>{faqs.map(([question, answer], index) => <div className="faq" key={question}><button onClick={() => setFaqOpen(faqOpen === index ? -1 : index)} aria-expanded={faqOpen === index}><span>{question}</span><b>{faqOpen === index ? '−' : '+'}</b></button>{faqOpen === index && <p>{answer}</p>}</div>)}</section>
           </article>
+
+          <aside className="visa-sidebar"><div className="visa-details"><p>VISA DETAILS</p><h2>Subclass 601</h2><dl><div><dt>Stay</dt><dd>Up to 3 months per visit</dd></div><div><dt>Validity</dt><dd>Up to 12 months</dd></div><div><dt>Cost</dt><dd>AUD $0</dd></div><div><dt>Work rights</dt><dd>Not permitted</dd></div><div><dt>Apply from</dt><dd>Outside Australia</dd></div></dl><a href="#contact-form">Discuss this visa <b>›</b></a></div><div className="agent-card"><span>REGISTERED MIGRATION SUPPORT</span><h3>Make your next move with confidence.</h3><p>Clear advice. Careful preparation. Support at every step.</p><a href="tel:+61861619239">☎ &nbsp;(08) 6161 9239</a></div></aside>
         </div>
+
+        <section id="contact-form"><EnquiryForm /></section>
       </main>
 
-      <section className="bottom-cta"><div><p>YOUR STUDY ABROAD JOURNEY STARTS HERE</p><h2>Ready to shape your future?</h2><span>Speak with our experienced education counsellors and take your next step with confidence.</span></div><a href="#consultation">Book a Free Consultation <b>›</b></a></section>
-      <footer><div className="footer-brand"><img src="/red-earth-logo.png" alt="Red Earth Education and Migration Agents" /><p>We help students make informed choices about studying abroad and build rewarding global careers.</p></div><div><h3>Study Abroad</h3><a href="#australia">Australia</a><a href="#usa">USA</a><a href="#canada">Canada</a><a href="#uk">United Kingdom</a></div><div><h3>Quick Links</h3><a href="#about">About Red Earth</a><a href="#services">Student Services</a><a href="#advice">Advice</a><a href="#contact">Contact Us</a></div></footer>
-      <a className="floating-contact" href="#consultation" aria-label="Talk to a counsellor">☏</a>
+      <footer>
+        <div className="footer-main"><div className="footer-about"><img src="/red-earth-logo.png" alt="Red Earth Education and Migration Agents" /><p>Red Earth Migration is a specialist consultancy employing Registered Migration Agents to handle your visa matters with honesty, clarity and care.</p><small>All information provided on this website is for general purposes only. For legal migration advice, please contact one of our Registered Migration Agents.</small><a href="#code">Code of Conduct</a></div><div><h3>Recent Posts</h3>{recentPosts.map(([title, date]) => <a className="post-link" href="#immigration-news" key={title}><span>{title}</span><small>{date}</small></a>)}</div><div><h3>Quick Links</h3><a href="#top">Home</a><a href="#about">About Us</a><a href="#contact-form">Contact Us</a><a href="#career">Career</a><a href="#invoice">Pay Your Invoice</a><a href="#client-area">Client Information Form</a><a href="#privacy">Privacy Policy</a><a href="#appointment">Schedule Appointment</a></div><div><h3>Contact Us</h3><p>Osborne Park | Morley<br />Harrisdale | Delhi</p><a href="tel:+61861619239">08 6161 9239</a><a href="tel:+61410755603">0410 755 603</a><p>Mon–Fri: 8:30 am to 5 pm<br />Sat–Sun: Closed</p><a href="mailto:info@redearthmigration.com.au">info@redearthmigration.com.au</a><div className="subscribe"><input type="email" aria-label="Newsletter email" placeholder="Email address" /><button aria-label="Subscribe">›</button></div></div></div>
+        <div className="copyright"><span>Copyright © Red Earth Migration. All rights reserved.</span><span>Education & Migration Agents</span></div>
+      </footer>
+      <a className="floating-contact" href="tel:+61861619239" aria-label="Call Red Earth Migration">☎</a>
     </div>
   )
 }
