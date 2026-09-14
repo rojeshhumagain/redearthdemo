@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 const services = [
   ['GSM Visa', '189, 190, 476, 887, 491 & 485', '#gsm-visa'],
@@ -44,6 +44,37 @@ const recentPosts = [
   ['Australia PR in 2026: Why Having the Right Occupation Is No Longer Enough', '22 August'],
 ]
 
+const relatedVisas = [
+  {
+    subclass: 'Subclass 600',
+    title: 'Visitor Visa',
+    description: 'Visit Australia for tourism, family visits or selected short-term business activities.',
+    detail: 'Stay up to 3, 6 or 12 months',
+    image: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=82',
+  },
+  {
+    subclass: 'Subclass 651',
+    title: 'eVisitor Visa',
+    description: 'A streamlined digital visitor pathway for eligible European passport holders.',
+    detail: 'Multiple visits over 12 months',
+    image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=1200&q=82',
+  },
+  {
+    subclass: 'Subclass 417',
+    title: 'Working Holiday Visa',
+    description: 'Travel, work and experience Australia for eligible young passport holders.',
+    detail: 'Travel and work in Australia',
+    image: 'https://images.unsplash.com/photo-1494233892892-84542a694e72?auto=format&fit=crop&w=1200&q=82',
+  },
+  {
+    subclass: 'Subclass 462',
+    title: 'Work and Holiday Visa',
+    description: 'Enjoy an extended holiday while undertaking short-term work and study.',
+    detail: 'Ages and eligibility vary by country',
+    image: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=82',
+  },
+]
+
 function Chevron() {
   return <span className="chevron">⌄</span>
 }
@@ -80,6 +111,7 @@ function EnquiryForm() {
 }
 
 function App() {
+  const relatedRef = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('overview')
@@ -133,6 +165,11 @@ function App() {
         </div>
 
         <section id="contact-form"><EnquiryForm /></section>
+
+        <section className="related-section" aria-labelledby="related-visas-title">
+          <div className="related-heading"><div><p className="section-label">EXPLORE YOUR OPTIONS</p><h2 id="related-visas-title">Related visitor visas</h2><span>Compare other pathways that may suit your travel plans and passport.</span></div><div className="slider-controls"><button type="button" aria-label="Show previous visas" onClick={() => relatedRef.current?.scrollBy({ left: -relatedRef.current.clientWidth * .82, behavior: 'smooth' })}>←</button><button type="button" aria-label="Show next visas" onClick={() => relatedRef.current?.scrollBy({ left: relatedRef.current.clientWidth * .82, behavior: 'smooth' })}>→</button></div></div>
+          <div className="related-track" ref={relatedRef}>{relatedVisas.map((visa) => <article className="related-card" key={visa.subclass}><img src={visa.image} alt="Australian travel destination" loading="lazy" /><div className="related-card-body"><p>{visa.subclass}</p><h3>{visa.title}</h3><span>{visa.description}</span><div><small>{visa.detail}</small><a href="#contact-form" aria-label={`Learn more about ${visa.title}`}>Learn more <b>›</b></a></div></div></article>)}</div>
+        </section>
       </main>
 
       <footer>
