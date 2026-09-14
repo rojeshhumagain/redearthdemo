@@ -68,7 +68,7 @@ function App() {
     <div>
       <div className="utility"><div className="utility-inner"><a href="#advice">Advice</a><a className="pill" href="#contact">Contact Us</a><a className="pill" href="#consultation">Book an Appointment</a><button className="region">◎ &nbsp; Global <Chevron /></button></div></div>
       <header className="header">
-        <a className="logo" href="#top"><img src="https://www.aeccglobal.com/aecc_logo.svg" alt="AECC Study Abroad Consultants" /></a>
+        <a className="logo" href="#top"><img src="/red-earth-logo.png" alt="Red Earth Education and Migration Agents" /></a>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">{menuOpen ? '✕' : '☰'}</button>
         <nav className={menuOpen ? 'open' : ''}>{['Study Abroad', 'Destinations', 'Courses', 'Exams', 'Scholarships', 'Application', 'Student Services'].map((item) => <a href={`#${item.toLowerCase().replaceAll(' ', '-')}`} key={item}>{item} <Chevron /></a>)}</nav>
       </header>
@@ -120,7 +120,7 @@ function App() {
       </main>
 
       <section className="bottom-cta"><div><p>YOUR STUDY ABROAD JOURNEY STARTS HERE</p><h2>Ready to shape your future?</h2><span>Speak with our experienced education counsellors and take your next step with confidence.</span></div><a href="#consultation">Book a Free Consultation <b>›</b></a></section>
-      <footer><div className="footer-brand"><img src="https://www.aeccglobal.com/aecc_logo.svg" alt="AECC" /><p>We help students make informed choices about studying abroad and build rewarding global careers.</p></div><div><h3>Study Abroad</h3><a href="#australia">Australia</a><a href="#usa">USA</a><a href="#canada">Canada</a><a href="#uk">United Kingdom</a></div><div><h3>Quick Links</h3><a href="#about">About AECC</a><a href="#services">Student Services</a><a href="#advice">Advice</a><a href="#contact">Contact Us</a></div></footer>
+      <footer><div className="footer-brand"><img src="/red-earth-logo.png" alt="Red Earth Education and Migration Agents" /><p>We help students make informed choices about studying abroad and build rewarding global careers.</p></div><div><h3>Study Abroad</h3><a href="#australia">Australia</a><a href="#usa">USA</a><a href="#canada">Canada</a><a href="#uk">United Kingdom</a></div><div><h3>Quick Links</h3><a href="#about">About Red Earth</a><a href="#services">Student Services</a><a href="#advice">Advice</a><a href="#contact">Contact Us</a></div></footer>
       <a className="floating-contact" href="#consultation" aria-label="Talk to a counsellor">☏</a>
     </div>
   )
