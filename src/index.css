@@ -1430,3 +1430,13 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
   .process-list p { font-size:15px; }
   .process-close { grid-template-columns:1fr; gap:6px; }
 }
+
+/* Unified Outfit typography and content-blue system */
+:root { --content-blue:#23384b; }
+body,button,input,select,textarea { font-family:'Outfit',system-ui,Arial,sans-serif; }
+body { color:var(--content-blue); }
+.header,.header a,.header button,.utility,.utility a { font-family:'Outfit',system-ui,Arial,sans-serif; }
+.header nav,.header nav>a,.nav-service>button,.utility-inner>a:not(.appointment) { color:var(--navy); }
+.visa-hero-copy>p:not(.kicker),.page-nav a,.visa-content>section>p:not(.section-label),.notice p,.problem-list p,.warning p,.faq>p,.agent-card p,.form-heading span,.form-grid input,.form-grid select,.form-grid textarea,.form-success p,.related-heading>div>span,.related-card-body>span,.related-card-body small { color:var(--content-blue); }
+.home-intro,.pathway-options span,.trust-copy>p,.trust-evidence p,.production-services header>p,.production-service-feature>div>span,.finder-intro>span,.finder-disclaimer,.finder-options small,.finder-result>span,.process-heading>p,.process-list p,.process-close p,.approach-lead,.approach-item>p,.journeys-heading>div:last-child>p,.journey-story dd,.journey-close>div span,.journey-disclaimer,.locations-heading>p,.office-tabs small,.office-information dd,.news-heading>div:last-child>p,.news-feature>div>span,.news-supporting article>div>span,.news-note,.homepage-faq aside>span,.homepage-faq-item>p,.contact-context>span,.contact-next li>span,.contact-form-heading>span,.contact-fields input,.contact-fields select,.contact-message textarea,.service-choice label>span,.contact-consent,.contact-disclaimer,.home-contact-success>strong { color:var(--content-blue); }
+.page-nav a,.production-service-tabs button,.journey-tabs button,.office-information dt,.finder-result dt,.service-choice-group>p { font-family:'Outfit',system-ui,Arial,sans-serif; }
