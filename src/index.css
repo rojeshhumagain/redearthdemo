@@ -1217,3 +1217,49 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
   .pathway-options { grid-template-columns:1fr; gap:10px; }
   .pathway-options>a,.pathway-options>a:nth-child(even) { min-height:78px; }
 }
+
+/* Refined Why Red Earth evidence section */
+.home-trust { padding:96px 0 104px; }
+.trust-intro { grid-template-columns:42fr 58fr; gap:100px; padding-bottom:0; border-bottom:0; }
+.trust-title>p { margin-bottom:16px; font-size:12px; font-weight:600; }
+.trust-title h2 { max-width:500px; font-size:48px; line-height:1.1; letter-spacing:-1.1px; font-weight:700; }
+.trust-copy { padding-top:4px; }
+.trust-copy>p { max-width:660px; font-size:18px; line-height:1.7; }
+.trust-copy>strong { max-width:650px; margin-top:23px; font-size:17px; line-height:1.6; font-weight:600; }
+.trust-copy>a { min-height:44px; margin-top:25px; padding:0 18px; display:inline-flex; border:1px solid var(--navy); border-radius:22px; color:var(--navy); font-size:14px; font-weight:600; }
+.trust-copy>a:hover { background:var(--navy); color:#fff; }
+.trust-evidence { margin-top:64px; padding-top:40px; border-top:2px solid var(--navy); }
+.trust-evidence>div { padding:0 30px; }
+.trust-evidence strong { min-height:42px; color:var(--navy); font-size:34px; line-height:1.1; letter-spacing:-.5px; font-weight:700; }
+.trust-evidence strong::after { width:28px; height:3px; margin-top:10px; }
+.trust-evidence span { margin-top:12px; font-size:15px; line-height:1.4; font-weight:600; }
+.trust-evidence p { margin-top:9px; color:#3b4853; font-size:14px; line-height:1.6; }
+
+@media (max-width:1100px) {
+  .home-trust { padding:85px 25px 92px; }
+  .trust-intro { gap:60px; }
+  .trust-title h2 { font-size:41px; }
+  .trust-evidence>div { padding:0 20px; }
+  .trust-evidence strong { font-size:29px; }
+}
+
+@media (max-width:820px) {
+  .home-trust { padding:75px 18px 82px; }
+  .trust-intro { grid-template-columns:1fr; gap:25px; }
+  .trust-title h2 { font-size:38px; }
+  .trust-copy { padding-top:0; }
+  .trust-evidence { grid-template-columns:1fr 1fr; gap:0; margin-top:52px; padding-top:0; }
+  .trust-evidence>div,.trust-evidence>div:first-child { padding:28px 24px; border-left:0; border-bottom:1px solid var(--line); }
+  .trust-evidence>div:nth-child(odd) { padding-left:0; border-right:1px solid var(--line); }
+  .trust-evidence>div:nth-child(even) { padding-right:0; }
+}
+
+@media (max-width:520px) {
+  .home-trust { padding-top:65px; padding-bottom:70px; }
+  .trust-title h2 { font-size:35px; }
+  .trust-copy>p { font-size:17px; }
+  .trust-evidence { grid-template-columns:1fr; }
+  .trust-evidence>div,.trust-evidence>div:first-child,.trust-evidence>div:nth-child(odd),.trust-evidence>div:nth-child(even) { padding:25px 0; border-right:0; border-bottom:1px solid var(--line); }
+  .trust-evidence>div:last-child { border-bottom:0; }
+  .trust-evidence strong { min-height:0; font-size:31px; }
+}
