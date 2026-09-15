@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
+import SiteFooter from './SiteFooter'
 import SiteHeader from './SiteHeader'
 
 const pathways = [
-  ['Study', 'Course guidance and student visas', '#student-visa'],
-  ['Work', 'Skilled and employer pathways', '#skilled-migration'],
+  ['Study', 'Course guidance and student visas', '#all-services'],
+  ['Work', 'Skilled and employer pathways', '#all-services'],
   ['Join family', 'Partner, parent and family visas', '#family-visas'],
   ['Visit', 'Visitor and working holiday visas', '/visitor-visa/electronic-travel-authority-601'],
 ]
@@ -42,7 +43,6 @@ const approachPrinciples = [
   ['We listen before we recommend', 'Your circumstances, priorities and concerns shape the conversation. We begin with questions, not assumptions.'],
   ['We explain the difficult parts', 'Requirements, risks and alternatives are discussed in clear language so you can make an informed decision.'],
   ['We prepare with care', 'Details matter. We help organise evidence, review information and identify gaps before they become avoidable problems.'],
-  ['We connect the bigger picture', 'Where relevant, education choices and migration planning are considered together rather than as isolated decisions.'],
   ['We stay accountable', 'You receive clear next steps and straightforward communication as your matter moves through each stage.'],
 ]
 
@@ -117,13 +117,16 @@ const homepageFaqs = [
   ['What happens during the first consultation?', 'The first conversation is used to understand your circumstances, identify the questions that need answering and discuss possible next steps. It is also an opportunity for you to understand the process and responsibilities involved.'],
 ]
 
-const contactServices = ['Student Visa', 'General Skilled Migration', 'Partner Visa', 'Parent Visa', 'Child Visa', 'Visitor Visa', 'Employer Sponsored Visa', 'Appeals & Reviews', 'Humanitarian & Refugee', 'Business Migration', 'Citizenship', 'Others']
+const contactServiceGroups = [
+  ['Education', ['Student Visa']],
+  ['Skilled & Work', ['General Skilled Migration', 'Employer Sponsored Visa']],
+  ['Family', ['Partner Visa', 'Parent Visa', 'Child Visa']],
+  ['Other Services', ['Visitor Visa', 'Appeals & Reviews', 'Humanitarian & Refugee', 'Business Migration', 'Citizenship', 'Others']],
+]
 
-const ctaReviewGoals = [
-  ['Study in Australia', 'Discuss My Study Plan', 'Course selection, applications and student visa support.'],
-  ['Work in Australia', 'Explore Skilled Pathways', 'Skilled, graduate and employer-sponsored starting points.'],
-  ['Join family', 'Discuss a Family Visa', 'Partner, parent and other family migration pathways.'],
-  ['Visit Australia', 'Ask About Visitor Visas', 'ETA, eVisitor, Visitor Visa and working holiday options.'],
+const serviceModes = [
+  { label:'Education Services', title:'Choose your study direction with the full journey in mind.', description:'From comparing courses to preparing a student visa application, we help you understand your options and make informed decisions at every stage.', items:['Course and institution guidance','Student Visa Subclass 500 support','Application and document preparation','Study pathway and future planning'], image:'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1400&q=86', alt:'Australian university campus viewed across the water', href:'#home-consultation' },
+  { label:'Migration Services', title:'Approach your visa pathway with a plan built around you.', description:'We assess your circumstances, explain the available pathways and support you through careful preparation and lodgement.', items:['Skilled and employer-sponsored visas','Partner, parent and family visas','Visitor, business and protection visas','Appeals, reviews and citizenship'], image:'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1400&q=86', alt:'Sydney Harbour and Opera House', href:'#home-consultation' },
 ]
 
 function VisaPathwayFinder() {
@@ -237,6 +240,7 @@ function HomepageFaqSection() {
 
 function HomeContactSection() {
   const [selectedService, setSelectedService] = useState('Student Visa')
+  const [showAllServices, setShowAllServices] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
   return (
@@ -251,7 +255,7 @@ function HomeContactSection() {
           {submitted ? <div className="home-contact-success"><span>✓</span><p>ENQUIRY RECEIVED</p><h3>Thank you for getting in touch.</h3><strong>Our team will review the information you provided and contact you using your preferred details.</strong><button type="button" onClick={() => setSubmitted(false)}>Send another enquiry</button></div> : <>
             <div className="contact-form-heading"><p>YOUR DETAILS</p><span>Fields marked with * are required.</span></div>
             <div className="contact-fields"><label><span>Full name *</span><input name="name" autoComplete="name" required placeholder="Your full name" /></label><label><span>Email address *</span><input name="email" type="email" autoComplete="email" required placeholder="you@example.com" /></label><label><span>Phone number *</span><input name="phone" type="tel" autoComplete="tel" required placeholder="Your contact number" /></label><label><span>Current country *</span><input name="country" autoComplete="country-name" required placeholder="Where are you currently?" /></label><label><span>Preferred office</span><select name="office" defaultValue=""><option value="" disabled>Select an office</option><option>Osborne Park</option><option>Morley</option><option>Harrisdale</option><option>New Delhi</option><option>Remote consultation</option></select></label><label><span>Preferred contact method</span><select name="contactMethod" defaultValue="Phone"><option>Phone</option><option>Email</option><option>WhatsApp</option></select></label></div>
-            <fieldset className="service-choice"><legend>Type of service required *</legend><div>{contactServices.map((service) => <label key={service}><input type="radio" name="service" value={service} checked={selectedService === service} onChange={() => setSelectedService(service)} /><span>{service}</span></label>)}</div></fieldset>
+            <fieldset className="service-choice"><legend>Type of service required *</legend><div className="service-choice-groups">{contactServiceGroups.slice(0, showAllServices ? contactServiceGroups.length : 3).map(([group, services]) => <div className="service-choice-group" key={group}><p>{group}</p><div>{services.map((service) => <label key={service}><input type="radio" name="service" value={service} checked={selectedService === service} onChange={() => setSelectedService(service)} /><span>{service}</span></label>)}</div></div>)}</div><button className="service-choice-toggle" type="button" onClick={() => setShowAllServices(!showAllServices)}>{showAllServices ? 'Show fewer services' : 'Show all services'} <b>{showAllServices ? '−' : '+'}</b></button></fieldset>
             <label className="contact-message"><span>How can we help?</span><textarea name="message" rows="5" placeholder="Tell us briefly about your plans or questions." /></label>
             <label className="contact-consent"><input type="checkbox" required /><span>I agree to Red Earth’s <a href="#privacy">Privacy Policy</a> and consent to being contacted about this enquiry. *</span></label>
             <button className="contact-submit" type="submit">Submit enquiry <b>›</b></button><small className="contact-disclaimer">Submitting this form does not create a client relationship or constitute migration advice.</small>
@@ -262,25 +266,17 @@ function HomeContactSection() {
   )
 }
 
-function HomepageCtaReview() {
-  const [concept, setConcept] = useState(0)
-  const [goal, setGoal] = useState(0)
-  const selectedGoal = ctaReviewGoals[goal]
-  const concepts = [['Professional', 'Editorial Split'], ['Personal', 'Human Consultation'], ['Guided', 'Goal-Based Action'], ['Direct', 'Contact Choice']]
-
+function ProductionServicesSection() {
+  const [activeService, setActiveService] = useState(0)
+  const service = serviceModes[activeService]
   return (
-    <section className="home-cta-review" aria-labelledby="home-cta-review-title">
-      <div className="home-cta-review-inner">
-        <header className="home-review-heading"><div><p>CLIENT CTA REVIEW</p><h2 id="home-cta-review-title">Choose the direction that best represents Red Earth.</h2></div><p>Compare four conversion approaches in the actual homepage position before selecting the final production version.</p></header>
-        <div className="home-review-tabs" role="tablist" aria-label="CTA design options">{concepts.map(([shortLabel, title], index) => <button className={concept === index ? 'active' : ''} type="button" role="tab" aria-selected={concept === index} onClick={() => setConcept(index)} key={title}><span>0{index + 1}</span><div><strong>{shortLabel}</strong><small>{title}</small></div></button>)}</div>
-        <div className="home-review-stage" role="tabpanel" aria-live="polite">
-          {concept === 0 && <div className="cta-concept-one"><div><p>START YOUR JOURNEY</p><h2>Your Australian pathway deserves <span>a clear plan.</span></h2><strong>Start with a conversation about your goals, circumstances and the options genuinely available to you.</strong></div><aside><a href="#home-consultation">Book a consultation <b>›</b></a><div className="cta-call-detail"><span>Prefer to speak first?</span><a href="tel:+61861619239">(08) 6161 9239</a></div><div className="cta-trust-note"><strong>Registered migration support</strong><small>Professional guidance starts with understanding your circumstances.</small></div></aside></div>}
-          {concept === 1 && <div className="cta-concept-two"><figure><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=86" alt="Professional adviser meeting with clients" loading="lazy" /><figcaption>A conversation centred on your circumstances.</figcaption></figure><div><p>REGISTERED MIGRATION SUPPORT</p><h2>Start with a conversation, <span>not an application.</span></h2><strong>Tell us where you are now and what you want to achieve. We will help you understand the questions and possible next steps.</strong><ul><li>Personalised discussion</li><li>Clear next steps</li><li>Honest expectations</li></ul><div><a href="#home-consultation">Talk to our team <b>›</b></a><a href="mailto:info@redearthmigration.com.au">Email your question</a></div></div></div>}
-          {concept === 2 && <div className="cta-concept-three"><header><p>FIND YOUR STARTING POINT</p><h2>What would you like help with?</h2><span>Select a goal to make the next action more relevant to you.</span></header><div className="concept-goals" role="tablist" aria-label="Select your goal">{ctaReviewGoals.map(([label], index) => <button className={goal === index ? 'active' : ''} type="button" role="tab" aria-selected={goal === index} onClick={() => setGoal(index)} key={label}><span>{label}</span><b>›</b></button>)}</div><div className="concept-goal-result" role="tabpanel"><p>{selectedGoal[0]}</p><span>{selectedGoal[2]}</span><a href="#home-consultation">{selectedGoal[1]} <b>›</b></a><button type="button" onClick={() => setGoal(0)}>I’m not sure yet</button></div></div>}
-          {concept === 3 && <div className="cta-concept-four"><header><p>CONTACT RED EARTH</p><h2>Ready when you are.</h2><span>Choose the most convenient way to begin your conversation.</span></header><div className="contact-methods"><a href="#home-consultation"><span>01</span><div><strong>Book an appointment</strong><small>Choose a time to discuss your circumstances</small></div><b>↗</b></a><a href="tel:+61861619239"><span>02</span><div><strong>Call our team</strong><small>(08) 6161 9239</small></div><b>↗</b></a><a href="mailto:info@redearthmigration.com.au"><span>03</span><div><strong>Send an email</strong><small>info@redearthmigration.com.au</small></div><b>↗</b></a><a href="#locations-title"><span>04</span><div><strong>Visit an office</strong><small>Osborne Park, Morley, Harrisdale or New Delhi</small></div><b>↗</b></a></div><footer><span>General hours: Monday–Friday, 8:30 am–5:00 pm</span><a href="#home-consultation">Start an enquiry <b>›</b></a></footer></div>}
-        </div>
-      </div>
-    </section>
+    <section className="production-services" id="all-services" aria-labelledby="services-title"><div className="production-services-inner"><header><div><p>HOW WE CAN HELP</p><h2 id="services-title">Education and migration support, considered together.</h2></div><p>Choose the conversation most relevant to you. Our team can help connect today’s decision with the practical steps that may follow.</p></header><div className="production-service-tabs" role="tablist" aria-label="Service type">{serviceModes.map((item,index)=><button className={activeService===index?'active':''} type="button" role="tab" aria-selected={activeService===index} onClick={()=>setActiveService(index)} key={item.label}>{item.label}<span>0{index+1}</span></button>)}</div><article className="production-service-feature" role="tabpanel" aria-live="polite"><img src={service.image} alt={service.alt} loading="lazy" /><div><p>{service.label}</p><h3>{service.title}</h3><span>{service.description}</span><ul>{service.items.map(item=><li key={item}>{item}</li>)}</ul><a href={service.href}>Explore {service.label.toLowerCase()} <b>›</b></a></div></article></div></section>
+  )
+}
+
+function ProductionFinalCta() {
+  return (
+    <section className="production-cta" aria-labelledby="production-cta-title"><div className="production-cta-inner"><div><p>READY FOR A CLEARER NEXT STEP?</p><h2 id="production-cta-title">Your Australian pathway deserves <span>a clear plan.</span></h2><strong>Start with a conversation about your goals, your circumstances and the options genuinely available to you.</strong></div><aside><a href="#home-consultation">Book a consultation <b>›</b></a><div className="production-phone"><span>Prefer to speak first?</span><a href="tel:+61861619239">(08) 6161 9239</a></div><p><strong>Registered migration support</strong><span>Professional guidance begins with understanding your circumstances.</span></p></aside></div></section>
   )
 }
 
@@ -288,6 +284,12 @@ export default function HomePage() {
   useEffect(() => {
     document.title = 'Migration Agents & Education Consultants Perth | Red Earth'
     document.querySelector('meta[name="description"]')?.setAttribute('content', 'Clear Australian education and migration guidance from Red Earth Migration. Explore student, skilled, family, employer and visitor visa pathways.')
+    const schema = document.createElement('script')
+    schema.type = 'application/ld+json'
+    schema.dataset.redEarthSchema = 'homepage'
+    schema.textContent = JSON.stringify({ '@context':'https://schema.org', '@graph':[{ '@type':['Organization','LocalBusiness'], name:'Red Earth Migration', url:window.location.origin, telephone:'+61 8 6161 9239', email:'info@redearthmigration.com.au', address:{ '@type':'PostalAddress', streetAddress:'Suite 8, 176 Main Street', addressLocality:'Osborne Park', addressRegion:'WA', postalCode:'6017', addressCountry:'AU' } },{ '@type':'FAQPage', mainEntity:homepageFaqs.map(([question,answer])=>({ '@type':'Question', name:question, acceptedAnswer:{ '@type':'Answer', text:answer } })) }] })
+    document.head.appendChild(schema)
+    return () => schema.remove()
   }, [])
 
   return (
@@ -300,7 +302,7 @@ export default function HomePage() {
             <h1 id="home-hero-title">Your future in Australia, <span>planned with clarity.</span></h1>
             <p className="home-intro">Clear education guidance and professional migration support, shaped around your circumstances, your goals and the life you want to build.</p>
             <div className="home-actions"><a className="primary-button" href="#hero-pathway">Explore your options <b>›</b></a><a className="home-secondary" href="#home-consultation">Book a consultation</a></div>
-            <div className="home-assurance"><strong>Advice you can act on.</strong><span>Honest assessments</span><span>Careful preparation</span><span>Clear communication</span></div>
+            <div className="home-assurance"><strong>Registered migration support with clear expectations at every stage.</strong></div>
           </div>
           <figure className="home-hero-visual">
             <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=88" alt="International students discussing their study plans together" />
@@ -328,21 +330,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="home-services" id="all-services" aria-labelledby="services-title">
-          <div className="home-services-inner">
-            <div className="service-intro"><p>HOW WE CAN HELP</p><h2 id="services-title">One team. Two kinds of support. <span>A clearer way forward.</span></h2><div><p>Education decisions and migration decisions often overlap. We bring both conversations together, so the advice you receive considers what happens now and what may come next.</p><a href="#home-consultation">Tell us about your plans <b>›</b></a></div></div>
-
-            <article className="service-story" id="student-visa">
-              <figure><img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1400&q=86" alt="Australian university campus viewed across the water" loading="lazy" /><figcaption>Education Services</figcaption></figure>
-              <div className="service-story-copy"><p>01 &nbsp; EDUCATION SERVICES</p><h3>Choose your study direction with the full journey in mind.</h3><span>From comparing courses to preparing a student visa application, we help you understand your options and make informed decisions at every stage.</span><ul><li>Course and institution guidance</li><li>Student Visa Subclass 500 support</li><li>Application and document preparation</li><li>Study pathway and future planning</li></ul><a href="#education-services">Explore education services <b>›</b></a></div>
-            </article>
-
-            <article className="service-story reverse" id="skilled-migration">
-              <figure><img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1400&q=86" alt="Sydney Harbour and Opera House at dusk" loading="lazy" /><figcaption>Migration Services</figcaption></figure>
-              <div className="service-story-copy"><p>02 &nbsp; MIGRATION SERVICES</p><h3>Approach your visa pathway with a plan built around you.</h3><span>We assess your circumstances, explain the available pathways and support you through careful preparation and lodgement.</span><ul><li>Skilled and employer-sponsored visas</li><li>Partner, parent and family visas</li><li>Visitor, business and protection visas</li><li>Appeals, reviews and citizenship</li></ul><a href="#migration-services">Explore migration services <b>›</b></a></div>
-            </article>
-          </div>
-        </section>
+        <ProductionServicesSection />
 
         <VisaPathwayFinder />
 
@@ -364,8 +352,9 @@ export default function HomePage() {
 
         <HomeContactSection />
 
-        <HomepageCtaReview />
+        <ProductionFinalCta />
       </main>
+      <SiteFooter />
     </div>
   )
 }

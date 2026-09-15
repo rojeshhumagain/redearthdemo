@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import CTAConcepts from './CTAConcepts'
 import HomePage from './HomePage'
+import SiteFooter from './SiteFooter'
 import SiteHeader from './SiteHeader'
 
 const eVisitorCountries = [
@@ -25,12 +26,6 @@ const faqs = [
   ['What family members can I include?', 'Family members cannot be included in one application. Each traveller, including children, must hold their own visa.'],
   ['Can the health requirement be waived for this visa?', 'The health requirement applies. Depending on your circumstances, you may be asked to complete a health assessment before travelling.'],
   ['How long does this visa last for?', 'The visa is generally valid for 12 months from grant. You may visit multiple times and stay for up to three months on each visit.'],
-]
-
-const recentPosts = [
-  ['In-Demand Courses in Australia 2026: What Should Onshore Students Study Next?', '04 September'],
-  ['Already in Australia? Why 2026 Could Be the Year to Reassess Your PR Pathway', '29 August'],
-  ['Australia PR in 2026: Why Having the Right Occupation Is No Longer Enough', '22 August'],
 ]
 
 const relatedVisas = [
@@ -163,10 +158,7 @@ function VisaPage() {
         </section>
       </main>
 
-      <footer>
-        <div className="footer-main"><div className="footer-about"><img src="/red-earth-logo.png" alt="Red Earth Education and Migration Agents" /><p>Red Earth Migration is a specialist consultancy employing Registered Migration Agents to handle your visa matters with honesty, clarity and care.</p><small>All information provided on this website is for general purposes only. For legal migration advice, please contact one of our Registered Migration Agents.</small><a href="#code">Code of Conduct</a></div><div><h3>Recent Posts</h3>{recentPosts.map(([title, date]) => <a className="post-link" href="#immigration-news" key={title}><span>{title}</span><small>{date}</small></a>)}</div><div><h3>Quick Links</h3><a href="#top">Home</a><a href="#about">About Us</a><a href="#contact-form">Contact Us</a><a href="#career">Career</a><a href="#invoice">Pay Your Invoice</a><a href="#client-area">Client Information Form</a><a href="#privacy">Privacy Policy</a><a href="#appointment">Schedule Appointment</a></div><div><h3>Contact Us</h3><p>Osborne Park | Morley<br />Harrisdale | Delhi</p><a href="tel:+61861619239">08 6161 9239</a><a href="tel:+61410755603">0410 755 603</a><p>Mon–Fri: 8:30 am to 5 pm<br />Sat–Sun: Closed</p><a href="mailto:info@redearthmigration.com.au">info@redearthmigration.com.au</a><div className="subscribe"><input type="email" aria-label="Newsletter email" placeholder="Email address" /><button aria-label="Subscribe">›</button></div></div></div>
-        <div className="copyright"><span>Copyright © Red Earth Migration. All rights reserved.</span><span>Education & Migration Agents</span></div>
-      </footer>
+      <SiteFooter />
       <a className="floating-contact" href="tel:+61861619239" aria-label="Call Red Earth Migration">☎</a>
     </div>
   )
