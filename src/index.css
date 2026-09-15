@@ -1077,3 +1077,14 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
   .contact-methods>a,.contact-methods>a:nth-child(2) { min-height:0; border-right:0; border-bottom:1px solid rgba(255,255,255,.22); }
   .cta-concept-four>footer { align-items:flex-start; flex-direction:column; padding:25px 22px 30px; }
 }
+
+/* Keep meaningful supporting information readable after all component rules. */
+.utility-inner>a:not(.appointment),.appointment,.services-heading>a,.services-grid strong,.services-grid small,.hero-facts small,.visa-details dt,.visa-details>a,.related-card-body small,.pathway-options span,.home-hero-visual figcaption span,.finder-intro>small,.finder-progress>span,.finder-options small,.finder-back,.finder-result dt,.finder-result-actions button,.process-close a,.approach-visual figcaption span,.journeys-heading small,.journey-story dt,.journey-selector>button small,.journey-selector>a,.office-tabs small,.office-information dt,.office-place>span,.news-feature small,.news-supporting small,.news-feature a,.news-supporting a,.news-supporting article>div>span,.news-note,.contact-next li>span,.contact-direct small,.contact-form-heading>span,.contact-fields label>span,.contact-message>span,.service-choice legend,.service-choice label>span,.contact-consent,.contact-disclaimer,.service-choice-group>p,.service-choice-toggle,.production-phone span,.production-cta aside>p strong,.production-cta aside>p span,.cta-call-detail>span,.cta-trust-note>strong,.cta-trust-note>small,.contact-methods small,.cta-concept-two figcaption,.cta-concept-four>footer>span,.concept-goal-result>a,.concept-goal-result>button,.cta-concept-four>footer>a,.concept-label>p,.subscribe input,.copyright { font-size:13px; }
+.finder-intro>small { max-width:500px; color:#d2dee8; line-height:1.65; }
+.finder-intro>small strong { color:#fff; font-weight:600; }
+.contact-disclaimer,.news-note { color:#4b5964; line-height:1.65; }
+.site-footer .footer-about small { font-size:13px; color:#d6e0e8; }
+
+@media (max-width:1100px) {
+  .header nav,.nav-service>button,.services-grid strong,.services-grid small { font-size:13px; }
+}
