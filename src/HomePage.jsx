@@ -303,6 +303,13 @@ export default function HomePage() {
         <ImmigrationNewsSection />
 
         <HomepageFaqSection />
+
+        <section className="home-final-cta" id="home-consultation" aria-labelledby="final-cta-title">
+          <div className="final-cta-inner">
+            <div className="final-cta-copy"><p>START YOUR JOURNEY</p><h2 id="final-cta-title">Your Australian pathway deserves <span>a clear plan.</span></h2><p>Start with a conversation about your goals, your circumstances and the options genuinely available to you.</p></div>
+            <div className="final-cta-actions"><a className="primary-button" href="#home-consultation">Book a consultation <b>›</b></a><a className="final-phone" href="tel:+61861619239">Call (08) 6161 9239</a><small>For migration advice specific to your situation, speak with one of our Registered Migration Agents.</small></div>
+          </div>
+        </section>
       </main>
     </div>
   )
