@@ -1307,3 +1307,75 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
   .production-service-feature h3 { font-size:29px; }
   .production-service-feature a { width:100%; min-height:48px; justify-content:center; }
 }
+
+/* Conversational visa pathway form */
+.visa-finder { padding:96px 0 104px; background:var(--navy-soft); color:var(--ink); }
+.finder-shell { max-width:900px; margin:0 auto; }
+.finder-intro { padding:0; text-align:center; }
+.finder-intro>p { margin-bottom:14px; color:var(--red); font-size:12px; font-weight:600; }
+.finder-intro h2 { max-width:none; color:var(--navy); font-size:44px; font-weight:700; }
+.finder-intro>span { max-width:660px; margin:18px auto 0; color:#293742; font-size:17px; line-height:1.65; }
+.finder-disclaimer { max-width:820px; margin:28px auto 18px; padding:16px 18px; border-radius:4px; background:#e4ebf0; display:flex; align-items:flex-start; gap:6px; color:#33414c; font-size:13px; line-height:1.6; }
+.finder-disclaimer strong { flex-shrink:0; color:var(--navy); font-weight:600; }
+.finder-panel { max-width:820px; min-height:0; margin:0 auto; padding:46px 52px; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--ink); }
+.finder-progress { display:block; margin-bottom:34px; }
+.finder-progress>div:first-child { width:100%; height:auto; margin-bottom:11px; overflow:visible; background:transparent; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.finder-progress>div:first-child span,.finder-progress>div:first-child small { color:var(--navy); font-size:13px; font-weight:600; letter-spacing:.04em; }
+.finder-progress>div:first-child small { color:#64717c; }
+.finder-progress>div:last-child { width:100%; height:4px; overflow:hidden; background:#dce3e9; }
+.finder-progress i { display:block; height:100%; background:var(--red); }
+.finder-form fieldset { margin:0; padding:0; border:0; }
+.finder-form legend { max-width:680px; margin:0 0 27px; padding:0; color:var(--navy); font-size:30px; line-height:1.25; font-weight:650; }
+.finder-options { margin:0; display:grid; grid-template-columns:1fr 1fr; gap:12px; border:0; }
+.finder-options label { min-height:86px; padding:17px 18px; border:1px solid var(--line); border-radius:6px; background:#fff; display:grid; grid-template-columns:20px 1fr; align-items:start; gap:12px; cursor:pointer; transition:background .18s ease,border-color .18s ease; }
+.finder-options label:hover { border-color:var(--navy); background:var(--navy-soft); }
+.finder-options label:has(input:checked) { border-color:var(--navy); background:#edf3f7; }
+.finder-options input { position:absolute; width:1px; height:1px; opacity:0; }
+.finder-options label>i { width:18px; height:18px; margin-top:2px; border:1px solid #8997a2; border-radius:50%; background:#fff; position:relative; }
+.finder-options input:checked+i { border:5px solid var(--navy); }
+.finder-options input:checked+i::after { content:''; position:absolute; inset:-2px; border-radius:50%; background:var(--red); }
+.finder-options input:focus-visible+i { outline:3px solid rgba(201,23,44,.28); outline-offset:3px; }
+.finder-options label>span { display:flex; flex-direction:column; gap:4px; }
+.finder-options strong { color:var(--navy); font-size:16px; font-weight:600; }
+.finder-options small { color:#45535e; font-size:14px; line-height:1.5; }
+.finder-navigation { min-height:46px; margin-top:28px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.finder-back { margin:0; font-size:13px; font-weight:600; }
+.finder-continue { min-width:130px; height:46px; padding:0 20px; border:0; border-radius:6px; background:var(--red); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.finder-continue b { margin-left:8px; font-size:18px; }
+.finder-continue:disabled { background:#cbd3d9; color:#687681; cursor:not-allowed; }
+.finder-result { animation:service-fade .18s ease; }
+.finder-result>p { font-size:12px; font-weight:600; }
+.finder-result h3 { font-size:32px; font-weight:650; }
+.finder-result dl { margin-top:28px; }
+.finder-result dt { font-size:13px; }
+.finder-result-actions { flex-wrap:wrap; }
+.finder-result-actions>a { min-height:44px; padding:0 18px; display:inline-flex; align-items:center; font-size:13px; font-weight:600; }
+.finder-result-actions>a:nth-of-type(2) { border:1px solid var(--navy); border-radius:22px; background:#fff; color:var(--navy); }
+.finder-result-actions button { font-weight:600; }
+
+@media (max-width:900px) {
+  .visa-finder { padding:78px 18px 85px; }
+}
+
+@media (max-width:600px) {
+  .visa-finder { padding-top:65px; padding-bottom:70px; }
+  .finder-intro { text-align:left; }
+  .finder-intro h2 { font-size:35px; }
+  .finder-intro>span { margin-left:0; font-size:16px; }
+  .finder-disclaimer { margin-top:23px; }
+  .finder-panel { padding:28px 20px; }
+  .finder-progress>div:first-child { flex-direction:row; }
+  .finder-form legend { font-size:26px; }
+  .finder-options { grid-template-columns:1fr; gap:10px; }
+  .finder-options label { min-height:76px; }
+  .finder-navigation { align-items:stretch; flex-direction:column-reverse; }
+  .finder-navigation>span { display:none; }
+  .finder-continue { width:100%; min-height:48px; }
+  .finder-back { align-self:flex-start; }
+  .finder-result dl { grid-template-columns:1fr; }
+  .finder-result dl>div,.finder-result dl>div:first-child { padding:13px 0; border-left:0; border-bottom:1px solid var(--line); }
+  .finder-result dl>div:last-child { border-bottom:0; }
+  .finder-result-actions { align-items:stretch; flex-direction:column; }
+  .finder-result-actions>a { justify-content:center; }
+  .finder-result-actions button { align-self:flex-start; }
+}

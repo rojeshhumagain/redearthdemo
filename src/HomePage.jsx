@@ -137,11 +137,12 @@ function VisaPathwayFinder() {
 
   const chooseAnswer = (value) => {
     setAnswers((current) => [...current.slice(0, step), value])
-    setStep((current) => current + 1)
   }
 
-  const goBack = () => {
-    setStep((current) => Math.max(0, current - 1))
+  const goBack = () => setStep((current) => Math.max(0, current - 1))
+  const continueFinder = (event) => {
+    event.preventDefault()
+    if (answers[step]) setStep((current) => current + 1)
   }
 
   const restart = () => {
@@ -151,11 +152,12 @@ function VisaPathwayFinder() {
 
   return (
     <section className="visa-finder" aria-labelledby="finder-title">
-      <div className="finder-inner">
-        <div className="finder-intro"><p>VISA PATHWAY FINDER</p><h2 id="finder-title">Not sure where to begin?</h2><span>Answer three simple questions to identify a useful starting point for your conversation with our team.</span><small><strong>Important:</strong> This pathway finder provides general guidance only. It does not assess visa eligibility or replace advice from a Registered Migration Agent.</small></div>
+      <div className="finder-shell">
+        <header className="finder-intro"><p>VISA PATHWAY FINDER</p><h2 id="finder-title">Not sure where to begin?</h2><span>Answer three simple questions to identify a useful starting point for your conversation with our team.</span></header>
+        <div className="finder-disclaimer"><strong>Important:</strong><span>This pathway finder provides general guidance only. It does not assess visa eligibility or replace advice from a Registered Migration Agent.</span></div>
         <div className="finder-panel" aria-live="polite">
-          <div className="finder-progress"><span>{complete ? 'Your starting point' : `Question ${step + 1} of ${finderQuestions.length}`}</span><div><i style={{ width: `${complete ? 100 : ((step + 1) / finderQuestions.length) * 100}%` }} /></div></div>
-          {!complete ? <><h3>{finderQuestions[step].prompt}</h3><div className="finder-options">{finderQuestions[step].options.map(([value, label, detail]) => <button type="button" onClick={() => chooseAnswer(value)} key={value}><span><strong>{label}</strong><small>{detail}</small></span><b>›</b></button>)}</div>{step > 0 && <button className="finder-back" type="button" onClick={goBack}>← Back</button>}</> : <div className="finder-result"><p>RECOMMENDED CATEGORY</p><h3>{result[0]}</h3><span>{result[1]}</span><dl><div><dt>Your goal</dt><dd>{finderQuestions[0].options.find(([value]) => value === answers[0])?.[1]}</dd></div><div><dt>Current location</dt><dd>{finderQuestions[1].options.find(([value]) => value === answers[1])?.[1]}</dd></div><div><dt>Sponsor</dt><dd>{finderQuestions[2].options.find(([value]) => value === answers[2])?.[1]}</dd></div></dl><div className="finder-result-actions"><a href={result[2]}>Explore this pathway <b>›</b></a><button type="button" onClick={restart}>Start again</button></div></div>}
+          <div className="finder-progress"><div><span>{complete ? 'YOUR STARTING POINT' : `STEP ${step + 1} OF ${finderQuestions.length}`}</span><small>{complete ? 'COMPLETE' : `${Math.round(((step + 1) / finderQuestions.length) * 100)}% COMPLETE`}</small></div><div><i style={{ width: `${complete ? 100 : ((step + 1) / finderQuestions.length) * 100}%` }} /></div></div>
+          {!complete ? <form className="finder-form" onSubmit={continueFinder}><fieldset><legend>{finderQuestions[step].prompt}</legend><div className="finder-options">{finderQuestions[step].options.map(([value, label, detail]) => <label key={value}><input type="radio" name={`finder-step-${step}`} value={value} checked={answers[step] === value} onChange={() => chooseAnswer(value)} /><i aria-hidden="true" /><span><strong>{label}</strong><small>{detail}</small></span></label>)}</div></fieldset><div className="finder-navigation">{step > 0 ? <button className="finder-back" type="button" onClick={goBack}>← Back</button> : <span />}<button className="finder-continue" type="submit" disabled={!answers[step]}>Continue <b>›</b></button></div></form> : <div className="finder-result"><p>RECOMMENDED CATEGORY</p><h3>{result[0]}</h3><span>{result[1]}</span><dl><div><dt>Your goal</dt><dd>{finderQuestions[0].options.find(([value]) => value === answers[0])?.[1]}</dd></div><div><dt>Current location</dt><dd>{finderQuestions[1].options.find(([value]) => value === answers[1])?.[1]}</dd></div><div><dt>Sponsor</dt><dd>{finderQuestions[2].options.find(([value]) => value === answers[2])?.[1]}</dd></div></dl><div className="finder-result-actions"><a href={result[2]}>Explore this pathway <b>›</b></a><a href="#home-consultation">Book a consultation</a><button type="button" onClick={restart}>Start again</button></div></div>}
         </div>
       </div>
     </section>
