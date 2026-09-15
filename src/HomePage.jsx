@@ -76,6 +76,13 @@ const clientJourneys = [
   },
 ]
 
+const offices = [
+  { name: 'Osborne Park', area: 'Perth head office', address: ['Suite 8, 176 Main Street', 'Osborne Park, WA 6017, Australia'], phone: '(08) 6161 9239', mobile: '0410 755 603', email: 'info@redearthmigration.com.au', place: 'PERTH', code: 'WA · 6017' },
+  { name: 'Morley', area: 'Perth north-east', address: ['Shop 28, 243/253 Walter Road West', 'Morley, WA 6062, Australia'], phone: '(08) 6161 9239', mobile: '0410 755 603', email: 'info@redearthmigration.com.au', place: 'MORLEY', code: 'WA · 6062' },
+  { name: 'Harrisdale', area: 'Perth south-east', address: ['5/723 Ranford Road', 'Harrisdale, WA 6112, Australia'], phone: '(08) 6161 9239', mobile: '0410 755 603', email: 'info@redearthmigration.com.au', place: 'HARRISDALE', code: 'WA · 6112' },
+  { name: 'New Delhi', area: 'India office', address: ['First Floor, Front Side, C-1 Shivaji Marg', 'Near West Metro Station, Vikaspuri, New Delhi 110018, India'], phone: '+91 80691 64147', mobile: null, email: 'info@redearthmigration.com', place: 'DELHI', code: 'INDIA · 110018' },
+]
+
 function VisaPathwayFinder() {
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState([])
@@ -134,6 +141,23 @@ function ClientJourneysSection() {
         <div className="journey-layout">
           <article className="journey-feature" aria-live="polite"><img src={journey.image} alt={journey.alt} loading="lazy" /><div className="journey-story"><p>{journey.category}</p><h3>{journey.title}</h3><dl><div><dt>The situation</dt><dd>{journey.situation}</dd></div><div><dt>How support can help</dt><dd>{journey.support}</dd></div><div><dt>A clearer next step</dt><dd>{journey.next}</dd></div></dl></div></article>
           <aside className="journey-selector"><div className="journey-selector-top"><span>EXPLORE THE JOURNEYS</span><div><button type="button" onClick={() => selectJourney(-1)} aria-label="Previous journey">←</button><button type="button" onClick={() => selectJourney(1)} aria-label="Next journey">→</button></div></div>{clientJourneys.map((item, index) => <button className={activeJourney === index ? 'active' : ''} type="button" onClick={() => setActiveJourney(index)} aria-pressed={activeJourney === index} key={item.category}><span>{String(index + 1).padStart(2, '0')}</span><div><strong>{item.category}</strong><small>{item.title}</small></div><b>›</b></button>)}<a href="#home-consultation">Discuss your own circumstances <b>›</b></a></aside>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function OfficeLocationsSection() {
+  const [activeOffice, setActiveOffice] = useState(0)
+  const office = offices[activeOffice]
+
+  return (
+    <section className="office-locations" aria-labelledby="locations-title">
+      <div className="locations-inner">
+        <div className="locations-heading"><div><p>OUR LOCATIONS</p><h2 id="locations-title">Local conversations, wherever your journey begins.</h2></div><p>Meet with the Red Earth team across three Perth locations or connect through our New Delhi office. Select an office to view verified contact details.</p></div>
+        <div className="office-explorer">
+          <div className="office-tabs" role="tablist" aria-label="Office locations">{offices.map((item, index) => <button className={activeOffice === index ? 'active' : ''} type="button" role="tab" aria-selected={activeOffice === index} onClick={() => setActiveOffice(index)} key={item.name}><span>{String(index + 1).padStart(2, '0')}</span><div><strong>{item.name}</strong><small>{item.area}</small></div><b>›</b></button>)}</div>
+          <div className="office-detail" role="tabpanel" aria-live="polite"><div className="office-information"><p>SELECTED OFFICE</p><h3>{office.name}</h3><dl><div><dt>Address</dt><dd>{office.address.map((line) => <span key={line}>{line}</span>)}</dd></div><div><dt>Contact</dt><dd><a href={`tel:${office.phone.replaceAll(' ', '')}`}>{office.phone}</a>{office.mobile && <a href={`tel:${office.mobile.replaceAll(' ', '')}`}>{office.mobile}</a>}</dd></div><div><dt>Email</dt><dd><a href={`mailto:${office.email}`}>{office.email}</a></dd></div><div><dt>General hours</dt><dd><span>Monday–Friday: 8:30 am–5:00 pm</span><span>Saturday–Sunday: Closed</span></dd></div></dl><a className="office-appointment" href="#home-consultation">Book at this office <b>›</b></a></div><div className="office-place" aria-hidden="true"><span>{office.code}</span><strong>{office.place}</strong><p>Education<br />& Migration</p></div></div>
         </div>
       </div>
     </section>
@@ -211,6 +235,8 @@ export default function HomePage() {
         <ApproachSection />
 
         <ClientJourneysSection />
+
+        <OfficeLocationsSection />
       </main>
     </div>
   )
