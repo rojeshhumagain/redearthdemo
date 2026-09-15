@@ -179,15 +179,19 @@ function ClientJourneysSection() {
   const [activeJourney, setActiveJourney] = useState(0)
   const journey = clientJourneys[activeJourney]
   const selectJourney = (direction) => setActiveJourney((current) => (current + direction + clientJourneys.length) % clientJourneys.length)
+  const handleJourneyKeys = (event) => {
+    if (event.key === 'ArrowLeft') selectJourney(-1)
+    if (event.key === 'ArrowRight') selectJourney(1)
+  }
 
   return (
     <section className="client-journeys" aria-labelledby="journeys-title">
       <div className="journeys-inner">
-        <div className="journeys-heading"><div><p>ILLUSTRATIVE CLIENT JOURNEYS</p><h2 id="journeys-title">Different questions. A more considered way forward.</h2></div><div><p>See how an advice conversation can bring structure to common education and migration decisions.</p><small>These are demonstration scenarios, not client testimonials or claims of visa outcomes.</small></div></div>
-        <div className="journey-layout">
-          <article className="journey-feature" aria-live="polite"><img src={journey.image} alt={journey.alt} loading="lazy" /><div className="journey-story"><p>{journey.category}</p><h3>{journey.title}</h3><dl><div><dt>The situation</dt><dd>{journey.situation}</dd></div><div><dt>How support can help</dt><dd>{journey.support}</dd></div><div><dt>A clearer next step</dt><dd>{journey.next}</dd></div></dl></div></article>
-          <aside className="journey-selector"><div className="journey-selector-top"><span>EXPLORE THE JOURNEYS</span><div><button type="button" onClick={() => selectJourney(-1)} aria-label="Previous journey">←</button><button type="button" onClick={() => selectJourney(1)} aria-label="Next journey">→</button></div></div>{clientJourneys.map((item, index) => <button className={activeJourney === index ? 'active' : ''} type="button" onClick={() => setActiveJourney(index)} aria-pressed={activeJourney === index} key={item.category}><span>{String(index + 1).padStart(2, '0')}</span><div><strong>{item.category}</strong><small>{item.title}</small></div><b>›</b></button>)}<a href="#home-consultation">Discuss your own circumstances <b>›</b></a></aside>
-        </div>
+        <div className="journeys-heading"><div><p>GUIDED JOURNEYS</p><h2 id="journeys-title">Different circumstances need different conversations.</h2></div><div><p>Explore how clear education and migration guidance can bring structure to important decisions.</p><div className="journey-arrows"><button type="button" onClick={() => selectJourney(-1)} aria-label="Previous journey">←</button><button type="button" onClick={() => selectJourney(1)} aria-label="Next journey">→</button></div></div></div>
+        <div className="journey-tabs" role="tablist" aria-label="Journey type" onKeyDown={handleJourneyKeys}>{clientJourneys.map((item, index) => <button className={activeJourney === index ? 'active' : ''} type="button" role="tab" aria-selected={activeJourney === index} onClick={() => setActiveJourney(index)} key={item.category}>{item.category}</button>)}</div>
+        <article className="journey-feature" key={journey.category} aria-live="polite"><img src={journey.image} alt={journey.alt} loading="lazy" /><div className="journey-story"><p>{journey.category}</p><h3>{journey.title}</h3><dl><div><dt>Starting point</dt><dd>{journey.situation}</dd></div><div><dt>Guidance</dt><dd>{journey.support}</dd></div><div><dt>Next step</dt><dd>{journey.next}</dd></div></dl></div></article>
+        <div className="journey-close"><div><strong>Ready to discuss your situation?</strong><span>Start with a conversation about your own circumstances.</span></div><a href="#home-consultation">Book a consultation <b>›</b></a><a href="tel:+61861619239">(08) 6161 9239</a></div>
+        <small className="journey-disclaimer">Illustrative scenarios are shown for general information. They are not client testimonials or representations of visa outcomes.</small>
       </div>
     </section>
   )
