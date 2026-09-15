@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import CTAConcepts from './CTAConcepts'
 import HomePage from './HomePage'
 import SiteHeader from './SiteHeader'
 
@@ -172,7 +173,9 @@ function VisaPage() {
 }
 
 function App() {
-  return window.location.pathname === '/' ? <HomePage /> : <VisaPage />
+  if (window.location.pathname === '/') return <HomePage />
+  if (window.location.pathname === '/cta-concepts') return <CTAConcepts />
+  return <VisaPage />
 }
 
 export default App
