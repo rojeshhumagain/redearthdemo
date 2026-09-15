@@ -83,6 +83,30 @@ const offices = [
   { name: 'New Delhi', area: 'India office', address: ['First Floor, Front Side, C-1 Shivaji Marg', 'Near West Metro Station, Vikaspuri, New Delhi 110018, India'], phone: '+91 80691 64147', mobile: null, email: 'info@redearthmigration.com', place: 'DELHI', code: 'INDIA · 110018' },
 ]
 
+const immigrationArticles = [
+  {
+    category: 'Study pathways', date: '04 September 2026', read: '6 min read',
+    title: 'In-Demand Courses in Australia 2026: What Should Onshore Students Study Next?',
+    summary: 'A practical look at course decisions, employment demand and the questions onshore students should consider before changing direction.',
+    image: 'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1400&q=86',
+    alt: 'Graduates walking together after a university ceremony',
+  },
+  {
+    category: 'PR planning', date: '29 August 2026', read: '5 min read',
+    title: 'Already in Australia? Why 2026 Could Be the Year to Reassess Your PR Pathway',
+    summary: 'Why changes in circumstances, occupation and location can make a fresh pathway discussion worthwhile.',
+    image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1000&q=84',
+    alt: 'Professionals discussing plans in a collaborative meeting',
+  },
+  {
+    category: 'Skilled migration', date: '22 August 2026', read: '7 min read',
+    title: 'Australia PR in 2026: Why Having the Right Occupation Is No Longer Enough',
+    summary: 'Occupation is one factor. Points, English, experience, nomination settings and timing can matter too.',
+    image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=84',
+    alt: 'A modern Australian workplace prepared for a team meeting',
+  },
+]
+
 function VisaPathwayFinder() {
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState([])
@@ -164,6 +188,22 @@ function OfficeLocationsSection() {
   )
 }
 
+function ImmigrationNewsSection() {
+  const [featured, ...supporting] = immigrationArticles
+  return (
+    <section className="home-news" id="immigration-news" aria-labelledby="news-title">
+      <div className="news-inner">
+        <div className="news-heading"><div><p>IMMIGRATION NEWS & INSIGHTS</p><h2 id="news-title">Useful context for your next decision.</h2></div><div><p>Practical articles about Australian education, migration settings and the questions worth asking before you act.</p><a href="#all-news">View all immigration news <b>›</b></a></div></div>
+        <div className="news-layout">
+          <article className="news-feature"><img src={featured.image} alt={featured.alt} loading="lazy" /><div><p>{featured.category}</p><h3>{featured.title}</h3><span>{featured.summary}</span><div><small>{featured.date} &nbsp;·&nbsp; {featured.read}</small><a href="#featured-article">Read article <b>›</b></a></div></div></article>
+          <div className="news-supporting">{supporting.map((article) => <article key={article.title}><img src={article.image} alt={article.alt} loading="lazy" /><div><p>{article.category}</p><h3>{article.title}</h3><span>{article.summary}</span><small>{article.date} &nbsp;·&nbsp; {article.read}</small><a href="#article">Read article <b>›</b></a></div></article>)}</div>
+        </div>
+        <p className="news-note">Migration information can change. Article content is general information and should be checked against current official requirements and your circumstances.</p>
+      </div>
+    </section>
+  )
+}
+
 export default function HomePage() {
   useEffect(() => {
     document.title = 'Migration Agents & Education Consultants Perth | Red Earth'
@@ -237,6 +277,8 @@ export default function HomePage() {
         <ClientJourneysSection />
 
         <OfficeLocationsSection />
+
+        <ImmigrationNewsSection />
       </main>
     </div>
   )
