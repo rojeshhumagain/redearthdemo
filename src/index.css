@@ -463,6 +463,24 @@ main { max-width:1280px; margin:auto; }
 .home-contact-success>h3 { max-width:580px; margin:0; color:var(--navy); font-size:35px; line-height:1.2; }
 .home-contact-success>strong { max-width:570px; margin-top:17px; color:#34424d; font-size:16px; line-height:1.7; font-weight:400; }
 .home-contact-success>button { margin-top:28px; padding:8px 0; border:0; border-bottom:2px solid var(--navy); background:transparent; color:var(--navy); font-size:13px; font-weight:900; cursor:pointer; }
+.home-cta-review { padding:105px 0 112px; background:#f3f5f7; }
+.home-cta-review-inner { max-width:1280px; margin:0 auto; }
+.home-review-heading { display:grid; grid-template-columns:1.1fr .9fr; align-items:end; gap:90px; margin-bottom:42px; }
+.home-review-heading>div>p { margin:0 0 14px; color:var(--red); font-size:11px; font-weight:900; letter-spacing:.13em; }
+.home-review-heading h2 { max-width:670px; margin:0; color:var(--navy); font-size:43px; line-height:1.12; letter-spacing:-1.1px; font-weight:900; }
+.home-review-heading>p { max-width:510px; margin:0 0 3px; color:#35434e; font-size:16px; line-height:1.7; }
+.home-review-tabs { display:grid; grid-template-columns:repeat(4,1fr); margin-bottom:16px; border-top:2px solid var(--navy); border-bottom:1px solid var(--line); }
+.home-review-tabs>button { padding:17px 18px; border:0; border-right:1px solid var(--line); background:#fff; display:grid; grid-template-columns:28px 1fr; align-items:center; gap:10px; text-align:left; cursor:pointer; }
+.home-review-tabs>button:last-child { border-right:0; }
+.home-review-tabs>button>span { color:var(--red); font-size:10px; font-weight:900; }
+.home-review-tabs>button>div { display:flex; flex-direction:column; gap:2px; }
+.home-review-tabs strong { color:var(--navy); font-size:14px; }
+.home-review-tabs small { color:#65727d; font-size:10px; }
+.home-review-tabs>button:hover { background:var(--navy-soft); }
+.home-review-tabs>button.active { background:var(--navy); }
+.home-review-tabs>button.active>span,.home-review-tabs>button.active strong { color:#fff; }
+.home-review-tabs>button.active small { color:#c6d5e1; }
+.home-review-stage { min-height:410px; }
 .home-final-cta { background:var(--navy); color:#fff; }
 .final-cta-inner { max-width:1280px; margin:0 auto; padding:96px 0 102px; display:grid; grid-template-columns:1.08fr .92fr; gap:100px; align-items:center; }
 .final-cta-copy>p:first-child { margin:0 0 16px; color:#f08e98; font-size:11px; font-weight:900; letter-spacing:.13em; }
@@ -558,6 +576,9 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
   .home-contact-inner { gap:55px; }
   .contact-context>h2 { font-size:39px; }
   .home-contact-form { padding:40px; }
+  .home-cta-review { padding:90px 25px 100px; }
+  .home-review-heading { gap:60px; }
+  .home-review-heading h2 { font-size:38px; }
   .final-cta-inner { gap:60px; }
   .final-cta-copy h2 { font-size:44px; }
 }
@@ -676,6 +697,12 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
   .contact-next { max-width:680px; }
   .contact-direct { grid-template-columns:1fr 1fr; gap:25px; }
   .home-contact-form { min-height:0; }
+  .home-cta-review { padding:78px 18px 85px; }
+  .home-review-heading { grid-template-columns:1fr; gap:22px; }
+  .home-review-heading>p { max-width:680px; }
+  .home-review-tabs { grid-template-columns:1fr 1fr; }
+  .home-review-tabs>button:nth-child(2) { border-right:0; }
+  .home-review-tabs>button:nth-child(-n+2) { border-bottom:1px solid var(--line); }
   .final-cta-inner { grid-template-columns:1fr; gap:45px; padding:80px 18px 85px; }
   .final-cta-copy>p:last-child { max-width:680px; }
   .final-cta-actions { padding-left:0; border-left:0; }
@@ -799,6 +826,10 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
   .service-choice label>span { min-height:44px; }
   .home-contact-success { min-height:450px; }
   .home-contact-success>h3 { font-size:29px; }
+  .home-cta-review { padding-top:65px; padding-bottom:65px; }
+  .home-review-heading h2 { font-size:34px; }
+  .home-review-tabs { grid-template-columns:1fr; }
+  .home-review-tabs>button,.home-review-tabs>button:nth-child(2) { border-right:0; border-bottom:1px solid var(--line); }
   .final-cta-inner { padding-top:70px; padding-bottom:70px; }
   .final-cta-copy h2 { font-size:38px; }
 }
