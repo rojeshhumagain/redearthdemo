@@ -117,6 +117,8 @@ const homepageFaqs = [
   ['What happens during the first consultation?', 'The first conversation is used to understand your circumstances, identify the questions that need answering and discuss possible next steps. It is also an opportunity for you to understand the process and responsibilities involved.'],
 ]
 
+const contactServices = ['Student Visa', 'General Skilled Migration', 'Partner Visa', 'Parent Visa', 'Child Visa', 'Visitor Visa', 'Employer Sponsored Visa', 'Appeals & Reviews', 'Humanitarian & Refugee', 'Business Migration', 'Citizenship', 'Others']
+
 function VisaPathwayFinder() {
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState([])
@@ -226,6 +228,33 @@ function HomepageFaqSection() {
   )
 }
 
+function HomeContactSection() {
+  const [selectedService, setSelectedService] = useState('Student Visa')
+  const [submitted, setSubmitted] = useState(false)
+
+  return (
+    <section className="home-contact" id="home-consultation" aria-labelledby="home-contact-title">
+      <div className="home-contact-inner">
+        <aside className="contact-context">
+          <p>START A CONVERSATION</p><h2 id="home-contact-title">Tell us what you are planning.</h2><span>Share the essentials and our team can begin with a more useful conversation about your education or migration goals.</span>
+          <div className="contact-next"><p>WHAT HAPPENS NEXT</p><ol><li><strong>We review your enquiry</strong><span>The team checks the details and identifies the right person to respond.</span></li><li><strong>We contact you</strong><span>We use the phone or email information you provide to arrange the next conversation.</span></li><li><strong>We clarify the next step</strong><span>If professional advice is needed, the process and responsibilities are explained.</span></li></ol></div>
+          <div className="contact-direct"><a href="tel:+61861619239"><small>CALL OUR TEAM</small><strong>(08) 6161 9239</strong></a><a href="mailto:info@redearthmigration.com.au"><small>EMAIL US</small><strong>info@redearthmigration.com.au</strong></a></div>
+        </aside>
+        <form className="home-contact-form" onSubmit={(event) => { event.preventDefault(); setSubmitted(true) }}>
+          {submitted ? <div className="home-contact-success"><span>✓</span><p>ENQUIRY RECEIVED</p><h3>Thank you for getting in touch.</h3><strong>Our team will review the information you provided and contact you using your preferred details.</strong><button type="button" onClick={() => setSubmitted(false)}>Send another enquiry</button></div> : <>
+            <div className="contact-form-heading"><p>YOUR DETAILS</p><span>Fields marked with * are required.</span></div>
+            <div className="contact-fields"><label><span>Full name *</span><input name="name" autoComplete="name" required placeholder="Your full name" /></label><label><span>Email address *</span><input name="email" type="email" autoComplete="email" required placeholder="you@example.com" /></label><label><span>Phone number *</span><input name="phone" type="tel" autoComplete="tel" required placeholder="Your contact number" /></label><label><span>Current country *</span><input name="country" autoComplete="country-name" required placeholder="Where are you currently?" /></label><label><span>Preferred office</span><select name="office" defaultValue=""><option value="" disabled>Select an office</option><option>Osborne Park</option><option>Morley</option><option>Harrisdale</option><option>New Delhi</option><option>Remote consultation</option></select></label><label><span>Preferred contact method</span><select name="contactMethod" defaultValue="Phone"><option>Phone</option><option>Email</option><option>WhatsApp</option></select></label></div>
+            <fieldset className="service-choice"><legend>Type of service required *</legend><div>{contactServices.map((service) => <label key={service}><input type="radio" name="service" value={service} checked={selectedService === service} onChange={() => setSelectedService(service)} /><span>{service}</span></label>)}</div></fieldset>
+            <label className="contact-message"><span>How can we help?</span><textarea name="message" rows="5" placeholder="Tell us briefly about your plans or questions." /></label>
+            <label className="contact-consent"><input type="checkbox" required /><span>I agree to Red Earth’s <a href="#privacy">Privacy Policy</a> and consent to being contacted about this enquiry. *</span></label>
+            <button className="contact-submit" type="submit">Submit enquiry <b>›</b></button><small className="contact-disclaimer">Submitting this form does not create a client relationship or constitute migration advice.</small>
+          </>}
+        </form>
+      </div>
+    </section>
+  )
+}
+
 export default function HomePage() {
   useEffect(() => {
     document.title = 'Migration Agents & Education Consultants Perth | Red Earth'
@@ -255,7 +284,7 @@ export default function HomePage() {
           <div className="pathway-options">{pathways.map(([title, detail, href]) => <a href={href} key={title}><div><strong>{title}</strong><span>{detail}</span></div><b>↗</b></a>)}</div>
         </section>
 
-        <div className="hero-foundation" id="home-consultation"><p>Registered migration support and education guidance from a team that listens before it advises.</p><a href="tel:+61861619239">Speak with our team &nbsp;›</a></div>
+        <div className="hero-foundation"><p>Registered migration support and education guidance from a team that listens before it advises.</p><a href="tel:+61861619239">Speak with our team &nbsp;›</a></div>
 
         <section className="home-trust" id="about-us" aria-labelledby="trust-title">
           <div className="trust-intro">
@@ -304,7 +333,9 @@ export default function HomePage() {
 
         <HomepageFaqSection />
 
-        <section className="home-final-cta" id="home-consultation" aria-labelledby="final-cta-title">
+        <HomeContactSection />
+
+        <section className="home-final-cta" aria-labelledby="final-cta-title">
           <div className="final-cta-inner">
             <div className="final-cta-copy"><p>START YOUR JOURNEY</p><h2 id="final-cta-title">Your Australian pathway deserves <span>a clear plan.</span></h2><p>Start with a conversation about your goals, your circumstances and the options genuinely available to you.</p></div>
             <div className="final-cta-actions"><a className="primary-button" href="#home-consultation">Book a consultation <b>›</b></a><a className="final-phone" href="tel:+61861619239">Call (08) 6161 9239</a><small>For migration advice specific to your situation, speak with one of our Registered Migration Agents.</small></div>
