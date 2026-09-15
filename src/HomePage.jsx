@@ -46,6 +46,36 @@ const approachPrinciples = [
   ['We stay accountable', 'You receive clear next steps and straightforward communication as your matter moves through each stage.'],
 ]
 
+const clientJourneys = [
+  {
+    category: 'Student planning',
+    title: 'Turning study uncertainty into a structured plan.',
+    situation: 'An international student is comparing courses, costs and the long-term value of studying in Australia.',
+    support: 'The conversation brings course selection, application preparation and student visa requirements into one practical plan.',
+    next: 'A focused shortlist, clearer documentation priorities and an informed next step.',
+    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=86',
+    alt: 'International students working together on campus',
+  },
+  {
+    category: 'Partner pathway',
+    title: 'Bringing a shared life into one clear application strategy.',
+    situation: 'A couple needs to understand which partner pathway may fit their location, relationship history and future plans.',
+    support: 'The process focuses on pathway differences, sponsor responsibilities, evidence planning and realistic timing considerations.',
+    next: 'A better understanding of the relevant pathway and the evidence that may need to be prepared.',
+    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1400&q=86',
+    alt: 'A couple spending time together outdoors',
+  },
+  {
+    category: 'Skilled migration',
+    title: 'Connecting professional experience to the right questions.',
+    situation: 'A professional wants to understand how occupation, experience, English ability and location influence migration options.',
+    support: 'The assessment organises the key facts, identifies information gaps and compares skilled and employer-sponsored starting points.',
+    next: 'A realistic pathway discussion based on the person’s actual profile rather than assumptions.',
+    image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=86',
+    alt: 'Professionals collaborating around a table',
+  },
+]
+
 function VisaPathwayFinder() {
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState([])
@@ -87,6 +117,24 @@ function ApproachSection() {
       <div className="approach-inner">
         <figure className="approach-visual"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=86" alt="Professional adviser meeting with clients" loading="lazy" /><figcaption><span>Personal guidance</span><strong>Clarity at every stage</strong></figcaption></figure>
         <div className="approach-content"><p>THE RED EARTH APPROACH</p><h2 id="approach-title">Professional support should still feel personal.</h2><span className="approach-lead">Our role is not simply to process information. It is to help you understand the decisions in front of you and prepare for them with confidence.</span><div className="approach-list">{approachPrinciples.map(([title, description], index) => <div className="approach-item" key={title}><button type="button" onClick={() => setOpenPrinciple(openPrinciple === index ? -1 : index)} aria-expanded={openPrinciple === index}><span>{String(index + 1).padStart(2, '0')}</span><strong>{title}</strong><b>{openPrinciple === index ? '−' : '+'}</b></button>{openPrinciple === index && <p>{description}</p>}</div>)}</div></div>
+      </div>
+    </section>
+  )
+}
+
+function ClientJourneysSection() {
+  const [activeJourney, setActiveJourney] = useState(0)
+  const journey = clientJourneys[activeJourney]
+  const selectJourney = (direction) => setActiveJourney((current) => (current + direction + clientJourneys.length) % clientJourneys.length)
+
+  return (
+    <section className="client-journeys" aria-labelledby="journeys-title">
+      <div className="journeys-inner">
+        <div className="journeys-heading"><div><p>ILLUSTRATIVE CLIENT JOURNEYS</p><h2 id="journeys-title">Different questions. A more considered way forward.</h2></div><div><p>See how an advice conversation can bring structure to common education and migration decisions.</p><small>These are demonstration scenarios, not client testimonials or claims of visa outcomes.</small></div></div>
+        <div className="journey-layout">
+          <article className="journey-feature" aria-live="polite"><img src={journey.image} alt={journey.alt} loading="lazy" /><div className="journey-story"><p>{journey.category}</p><h3>{journey.title}</h3><dl><div><dt>The situation</dt><dd>{journey.situation}</dd></div><div><dt>How support can help</dt><dd>{journey.support}</dd></div><div><dt>A clearer next step</dt><dd>{journey.next}</dd></div></dl></div></article>
+          <aside className="journey-selector"><div className="journey-selector-top"><span>EXPLORE THE JOURNEYS</span><div><button type="button" onClick={() => selectJourney(-1)} aria-label="Previous journey">←</button><button type="button" onClick={() => selectJourney(1)} aria-label="Next journey">→</button></div></div>{clientJourneys.map((item, index) => <button className={activeJourney === index ? 'active' : ''} type="button" onClick={() => setActiveJourney(index)} aria-pressed={activeJourney === index} key={item.category}><span>{String(index + 1).padStart(2, '0')}</span><div><strong>{item.category}</strong><small>{item.title}</small></div><b>›</b></button>)}<a href="#home-consultation">Discuss your own circumstances <b>›</b></a></aside>
+        </div>
       </div>
     </section>
   )
@@ -161,6 +209,8 @@ export default function HomePage() {
         </section>
 
         <ApproachSection />
+
+        <ClientJourneysSection />
       </main>
     </div>
   )
