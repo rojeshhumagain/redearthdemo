@@ -107,6 +107,16 @@ const immigrationArticles = [
   },
 ]
 
+const homepageFaqs = [
+  ['Why should I use a Registered Migration Agent?', 'Registered Migration Agents are required to understand relevant migration law, meet professional standards and follow a Code of Conduct. Their role is to explain options, responsibilities and risks based on your circumstances.'],
+  ['Which Australian visa is right for me?', 'The answer depends on factors such as your goal, location, age, occupation, qualifications, English ability, family circumstances and sponsorship options. A proper assessment is needed before recommending a pathway.'],
+  ['Can Red Earth guarantee that my visa will be granted?', 'No ethical adviser can guarantee a visa outcome. Decisions are made by the relevant Australian authority. Red Earth can help you understand requirements and prepare your matter carefully, but cannot control the final decision.'],
+  ['Can Red Earth assist me if I am outside Australia?', 'Yes. Red Earth supports clients through its Perth locations and New Delhi office, and can communicate remotely where appropriate. The service available will depend on your matter and location.'],
+  ['What documents should I prepare before a consultation?', 'Useful starting documents may include your passport, current visa details, education records, employment history and information about your goals. The team can confirm what is relevant when your appointment is arranged.'],
+  ['How long does an Australian visa application take?', 'Processing times vary by visa category, application quality, personal circumstances and government workload. Current official processing information should be checked when your pathway is assessed.'],
+  ['What happens during the first consultation?', 'The first conversation is used to understand your circumstances, identify the questions that need answering and discuss possible next steps. It is also an opportunity for you to understand the process and responsibilities involved.'],
+]
+
 function VisaPathwayFinder() {
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState([])
@@ -204,6 +214,18 @@ function ImmigrationNewsSection() {
   )
 }
 
+function HomepageFaqSection() {
+  const [openFaq, setOpenFaq] = useState(0)
+  return (
+    <section className="homepage-faq" aria-labelledby="homepage-faq-title">
+      <div className="homepage-faq-inner">
+        <aside><p>COMMON QUESTIONS</p><h2 id="homepage-faq-title">Straight answers before you take the next step.</h2><span>Every matter is different, but understanding the fundamentals can make your first conversation more useful.</span><div><strong>Still have a question?</strong><a href="tel:+61861619239">Call (08) 6161 9239 <b>›</b></a></div></aside>
+        <div className="homepage-faq-list">{homepageFaqs.map(([question, answer], index) => <div className="homepage-faq-item" key={question}><button type="button" onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>Q{String(index + 1).padStart(2, '0')}</span><strong>{question}</strong><b>{openFaq === index ? '−' : '+'}</b></button>{openFaq === index && <p>{answer}</p>}</div>)}</div>
+      </div>
+    </section>
+  )
+}
+
 export default function HomePage() {
   useEffect(() => {
     document.title = 'Migration Agents & Education Consultants Perth | Red Earth'
@@ -279,6 +301,8 @@ export default function HomePage() {
         <OfficeLocationsSection />
 
         <ImmigrationNewsSection />
+
+        <HomepageFaqSection />
       </main>
     </div>
   )
