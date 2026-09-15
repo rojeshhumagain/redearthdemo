@@ -340,9 +340,9 @@ export default function HomePage() {
         <VisaPathwayFinder />
 
         <section className="home-process" aria-labelledby="process-title">
-          <div className="process-heading"><div><p>HOW WE WORK</p><h2 id="process-title">A clear process for decisions that matter.</h2></div><p>You should always know what stage you are at, what is required and what happens next. Our process is designed to make complex matters easier to understand without oversimplifying them.</p></div>
-          <div className="process-steps">{processSteps.map(([title, description], index) => <article key={title}><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
-          <div className="process-close"><strong>Every matter is different.</strong><p>Your pathway, documentation and timing will be assessed against your individual circumstances.</p><a href="#home-consultation">Start a conversation <b>›</b></a></div>
+          <div className="process-heading"><div><p>HOW WE WORK</p><h2 id="process-title">A clear process for decisions that matter.</h2></div><p>You should always know what stage you are at, what is required and what happens next. Our process makes complex matters easier to understand without oversimplifying them.</p></div>
+          <div className="process-workspace"><aside><p>YOUR PATHWAY, CLEARLY MAPPED</p><h3>Clarity from the first conversation to the next step.</h3><span>Every matter follows its own path. Our role is to keep the process organised, understandable and focused on your circumstances.</span><a href="#home-consultation">Start a conversation <b>›</b></a></aside><ol className="process-list">{processSteps.map(([title, description], index) => <li key={title}><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></li>)}</ol></div>
+          <div className="process-close"><strong>Every matter is different.</strong><p>Your pathway, documentation and timing will be assessed against your individual circumstances.</p></div>
         </section>
 
         <ApproachSection />
