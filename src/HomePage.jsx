@@ -9,28 +9,6 @@ const pathways = [
   ['Visit', 'Visitor and working holiday visas', '/visitor-visa/electronic-travel-authority-601'],
 ]
 
-const finderQuestions = [
-  {
-    prompt: 'What is your main goal in Australia?',
-    options: [['study', 'Study', 'Begin or continue your education'], ['work', 'Work', 'Explore skilled or employer pathways'], ['family', 'Join family', 'Live with a partner, parent or child'], ['visit', 'Visit', 'Travel, see family or attend business activities']],
-  },
-  {
-    prompt: 'Where are you currently located?',
-    options: [['inside', 'In Australia', 'I currently hold or have held an Australian visa'], ['outside', 'Outside Australia', 'I am planning my move from overseas']],
-  },
-  {
-    prompt: 'Do you have an Australian sponsor?',
-    options: [['yes', 'Yes', 'A person or employer may be able to sponsor me'], ['no', 'No', 'I need to understand independent options'], ['unsure', 'Not sure', 'I would like help understanding sponsorship']],
-  },
-]
-
-const finderResults = {
-  study: ['Student and graduate pathways', 'Your starting point may include course selection, a Student Visa Subclass 500 or post-study options.', '#student-visa'],
-  work: ['Skilled and employer pathways', 'Your experience, occupation, location and sponsor status can shape the skilled or employer-sponsored options available.', '#skilled-migration'],
-  family: ['Partner and family pathways', 'Your relationship, sponsor eligibility and current location can affect which partner, parent or family pathway is appropriate.', '#family-visas'],
-  visit: ['Visitor visa pathways', 'Your passport, purpose of travel and intended stay can determine whether an ETA, eVisitor or Visitor Visa may be relevant.', '/visitor-visa/electronic-travel-authority-601'],
-}
-
 const processSteps = [
   ['Understand', 'We begin with your goals, circumstances, current status and the questions that matter most to you.'],
   ['Assess', 'Our team reviews the relevant pathways, requirements, timing considerations and potential risks.'],
@@ -128,41 +106,6 @@ const serviceModes = [
   { label:'Education Services', title:'Choose your study direction with the full journey in mind.', description:'From comparing courses to preparing a student visa application, we help you understand your options and make informed decisions at every stage.', items:['Course and institution guidance','Student Visa Subclass 500 support','Application and document preparation','Study pathway and future planning'], image:'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1400&q=86', alt:'Australian university campus viewed across the water', href:'#home-consultation' },
   { label:'Migration Services', title:'Approach your visa pathway with a plan built around you.', description:'We assess your circumstances, explain the available pathways and support you through careful preparation and lodgement.', items:['Skilled and employer-sponsored visas','Partner, parent and family visas','Visitor, business and protection visas','Appeals, reviews and citizenship'], image:'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1400&q=86', alt:'Sydney Harbour and Opera House', href:'#home-consultation' },
 ]
-
-function VisaPathwayFinder() {
-  const [step, setStep] = useState(0)
-  const [answers, setAnswers] = useState([])
-  const complete = step === finderQuestions.length
-  const result = complete ? finderResults[answers[0]] : null
-
-  const chooseAnswer = (value) => {
-    setAnswers((current) => [...current.slice(0, step), value])
-  }
-
-  const goBack = () => setStep((current) => Math.max(0, current - 1))
-  const continueFinder = (event) => {
-    event.preventDefault()
-    if (answers[step]) setStep((current) => current + 1)
-  }
-
-  const restart = () => {
-    setAnswers([])
-    setStep(0)
-  }
-
-  return (
-    <section className="visa-finder" aria-labelledby="finder-title">
-      <div className="finder-shell">
-        <header className="finder-intro"><p>VISA PATHWAY FINDER</p><h2 id="finder-title">Not sure where to begin?</h2><span>Answer three simple questions to identify a useful starting point for your conversation with our team.</span></header>
-        <div className="finder-disclaimer"><strong>Important:</strong><span>This pathway finder provides general guidance only. It does not assess visa eligibility or replace advice from a Registered Migration Agent.</span></div>
-        <div className="finder-panel" aria-live="polite">
-          <div className="finder-progress"><div><span>{complete ? 'YOUR STARTING POINT' : `STEP ${step + 1} OF ${finderQuestions.length}`}</span><small>{complete ? 'COMPLETE' : `${Math.round(((step + 1) / finderQuestions.length) * 100)}% COMPLETE`}</small></div><div><i style={{ width: `${complete ? 100 : ((step + 1) / finderQuestions.length) * 100}%` }} /></div></div>
-          {!complete ? <form className="finder-form" onSubmit={continueFinder}><fieldset><legend>{finderQuestions[step].prompt}</legend><div className="finder-options">{finderQuestions[step].options.map(([value, label, detail]) => <label key={value}><input type="radio" name={`finder-step-${step}`} value={value} checked={answers[step] === value} onChange={() => chooseAnswer(value)} /><i aria-hidden="true" /><span><strong>{label}</strong><small>{detail}</small></span></label>)}</div></fieldset><div className="finder-navigation">{step > 0 ? <button className="finder-back" type="button" onClick={goBack}>← Back</button> : <span />}<button className="finder-continue" type="submit" disabled={!answers[step]}>Continue <b>›</b></button></div></form> : <div className="finder-result"><p>RECOMMENDED CATEGORY</p><h3>{result[0]}</h3><span>{result[1]}</span><dl><div><dt>Your goal</dt><dd>{finderQuestions[0].options.find(([value]) => value === answers[0])?.[1]}</dd></div><div><dt>Current location</dt><dd>{finderQuestions[1].options.find(([value]) => value === answers[1])?.[1]}</dd></div><div><dt>Sponsor</dt><dd>{finderQuestions[2].options.find(([value]) => value === answers[2])?.[1]}</dd></div></dl><div className="finder-result-actions"><a href={result[2]}>Explore this pathway <b>›</b></a><a href="#home-consultation">Book a consultation</a><button type="button" onClick={restart}>Start again</button></div></div>}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 function ApproachSection() {
   const [openPrinciple, setOpenPrinciple] = useState(0)
@@ -336,8 +279,6 @@ export default function HomePage() {
         </section>
 
         <ProductionServicesSection />
-
-        <VisaPathwayFinder />
 
         <section className="home-process" aria-labelledby="process-title">
           <div className="process-heading"><div><p>HOW WE WORK</p><h2 id="process-title">A clear process for decisions that matter.</h2></div><p>You should always know what stage you are at, what is required and what happens next. Our process makes complex matters easier to understand without oversimplifying them.</p></div>
