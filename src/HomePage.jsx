@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import SiteFooter from './SiteFooter'
-import SiteHeader from './SiteHeader'
 
 const pathways = [
   ['Study', 'Course guidance and student visas', '#all-services'],
@@ -246,7 +244,6 @@ export default function HomePage() {
 
   return (
     <div className="home-page">
-      <SiteHeader appointmentHref="#home-consultation" />
       <main className="home-main">
         <section className="home-hero-shell" aria-labelledby="home-hero-title">
           <div className="home-hero">
@@ -258,7 +255,7 @@ export default function HomePage() {
               <div className="home-assurance"><strong>Registered migration support with clear expectations at every stage.</strong></div>
             </div>
             <figure className="home-hero-visual">
-              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=88" alt="International students discussing their study plans together" />
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="International students discussing their study plans together" />
               <figcaption>Personal guidance for important decisions.</figcaption>
             </figure>
           </div>
@@ -300,7 +297,6 @@ export default function HomePage() {
 
         <ProductionFinalCta />
       </main>
-      <SiteFooter />
     </div>
   )
 }

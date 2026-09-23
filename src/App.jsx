@@ -1,8 +1,12 @@
-import { useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import CTAConcepts from './CTAConcepts'
 import HomePage from './HomePage'
 import SiteFooter from './SiteFooter'
 import SiteHeader from './SiteHeader'
+import { serviceGroups } from './serviceData'
+
+const ServiceCategoryPage = lazy(() => import('./ServiceCategoryPage'))
+const localRoutes = new Set(['/', '/cta-concepts', '/visitor-visa/electronic-travel-authority-601', ...serviceGroups.map(([, path]) => path)])
 
 const eVisitorCountries = [
   ['Andorra', 'Greece', 'Norway'], ['Austria', 'Hungary', 'Poland'], ['Belgium', 'Iceland', 'Portugal'],
@@ -97,6 +101,11 @@ function VisaPage() {
   const [faqOpen, setFaqOpen] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
 
+  useEffect(() => {
+    document.title = 'Electronic Travel Authority Subclass 601 | Red Earth Migration'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Electronic Travel Authority Subclass 601 eligibility, visa conditions and application guidance from Red Earth Migration.')
+  }, [])
+
   const startRelatedDrag = (event) => {
     if (event.pointerType !== 'mouse' || event.button !== 0) return
     dragState.current = { dragging: true, moved: false, startX: event.clientX, scrollLeft: event.currentTarget.scrollLeft }
@@ -120,10 +129,8 @@ function VisaPage() {
 
   return (
     <div>
-      <SiteHeader />
-
       <main id="top">
-        <div className="breadcrumbs"><a href="#home">Home</a><span>›</span><a href="#visitor-visa">Visitor Visa</a><span>›</span><b>Subclass 601</b></div>
+        <div className="breadcrumbs"><a href="/">Home</a><span>›</span><a href="/visa-services#visitor-visa">Visitor Visa</a><span>›</span><b>Subclass 601</b></div>
 
         <section className="visa-hero">
           <div className="visa-hero-copy"><p className="kicker">VISITOR VISA</p><h1>Electronic Travel Authority <span>Subclass 601</span></h1><p>If you want to visit Australia and have the right passport, you’re in luck. The Electronic Travel Authority is one of the easiest pathways for eligible visitors, with no application fee and many visas granted within minutes or hours.</p><div className="hero-actions"><a className="primary-button" href="#contact-form">Check your eligibility <b>›</b></a><a className="text-link" href="tel:+61861619239">Call (08) 6161 9239</a></div></div>
@@ -158,16 +165,55 @@ function VisaPage() {
         </section>
       </main>
 
-      <SiteFooter />
       <a className="floating-contact" href="tel:+61861619239" aria-label="Call Red Earth Migration">☎</a>
     </div>
   )
 }
 
 function App() {
-  if (window.location.pathname === '/') return <HomePage />
-  if (window.location.pathname === '/cta-concepts') return <CTAConcepts />
-  return <VisaPage />
+  const [path, setPath] = useState(window.location.pathname)
+  const serviceGroup = serviceGroups.find(([, route]) => route === path)?.[0]
+
+  useLayoutEffect(() => {
+    if (serviceGroup) document.title = `${serviceGroup} | Red Earth Migration`
+  }, [serviceGroup])
+
+  useEffect(() => {
+    const navigate = (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+      const link = event.target.closest?.('a[href]')
+      if (!link || (link.target && link.target !== '_self') || link.hasAttribute('download')) return
+      const url = new URL(link.href)
+      if (url.origin !== window.location.origin || !localRoutes.has(url.pathname)) return
+      if (url.pathname === window.location.pathname && url.search === window.location.search) return
+      event.preventDefault()
+      window.history.pushState(null, '', url.pathname + url.search + url.hash)
+      setPath(url.pathname)
+    }
+    const onHistoryChange = () => setPath(window.location.pathname)
+    document.addEventListener('click', navigate)
+    window.addEventListener('popstate', onHistoryChange)
+    return () => {
+      document.removeEventListener('click', navigate)
+      window.removeEventListener('popstate', onHistoryChange)
+    }
+  }, [])
+
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      const target = window.location.hash && document.getElementById(decodeURIComponent(window.location.hash.slice(1)))
+      if (target) target.scrollIntoView({ behavior: 'instant' })
+      else window.scrollTo({ top: 0, behavior: 'instant' })
+    })
+  }, [path])
+
+  return <>
+    <SiteHeader appointmentHref={path === '/' ? '#home-consultation' : path === '/cta-concepts' ? '#concept-one' : serviceGroup ? '/#home-consultation' : '#contact-form'} />
+    <Suspense fallback={<main className="page-loader" role="status" aria-live="polite"><span className="page-loader-indicator" aria-hidden="true" />Loading services...</main>}>
+      {path === '/' ? <HomePage /> : path === '/cta-concepts' ? <CTAConcepts /> : serviceGroup ? <ServiceCategoryPage group={serviceGroup} /> : <VisaPage />}
+    </Suspense>
+    {path !== '/cta-concepts' && <SiteFooter />}
+  </>
 }
 
 export default App
