@@ -30,14 +30,19 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .services-heading small { color:var(--red); font-size:10px; font-weight:800; letter-spacing:.1em; }
 .services-heading strong { color:var(--navy); font-size:19px; }
 .services-heading>a { color:var(--red); font-size:12px; font-weight:700; }
-.services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px 14px; padding-top:12px; }
-.services-grid>a { min-width:0; display:flex; align-items:center; gap:10px; padding:10px 8px; border-radius:var(--radius-small); transition:background .18s ease; }
-.services-grid>a:hover { background:var(--navy-soft); }
-.services-grid>a>span { display:grid; place-items:center; width:30px; height:30px; min-width:30px; border-radius:var(--radius-small); background:var(--red-soft); color:var(--red); font-size:12px; font-weight:800; }
-.services-grid>a>div { min-width:0; display:flex; flex-direction:column; gap:1px; }
+.services-grid { display:grid; gap:18px; padding-top:16px; }
+.services-group h3 { margin:0 10px 8px; color:var(--red); font-size:12px; letter-spacing:.06em; }
+.services-group>div { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2px 14px; }
+.services-group a { min-width:0; display:flex; align-items:center; gap:10px; padding:10px 8px; border-radius:var(--radius-small); transition:background .18s ease; }
+.services-group a:hover { background:var(--navy-soft); }
+.services-group a>div { min-width:0; display:flex; flex-direction:column; gap:1px; }
 .services-grid strong { color:var(--navy); font-size:12px; line-height:1.35; }
 .services-grid small { overflow:hidden; color:var(--muted); font-size:10px; line-height:1.4; text-overflow:ellipsis; white-space:nowrap; }
-.services-grid>a>b { margin-left:auto; color:var(--red); font-size:17px; }
+.services-group a>b { margin-left:auto; color:var(--red); font-size:17px; }
+@media (min-width:821px) and (max-width:1100px) {
+  .services-menu { left:auto; right:-270px; width:min(760px,calc(100vw - 50px)); transform:translateY(8px); }
+  .nav-service:hover .services-menu,.nav-service:focus-within .services-menu,.nav-service.expanded .services-menu { transform:translateY(0); }
+}
 main { max-width:1280px; margin:auto; }
 .breadcrumbs { height:56px; display:flex; align-items:center; gap:13px; color:var(--muted); font-size:13px; }
 .breadcrumbs a:hover { color:var(--red); }
@@ -564,9 +569,10 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
   .nav-service:hover .services-menu,.nav-service:focus-within .services-menu { display:none; transform:none; }
   .nav-service.expanded .services-menu,.nav-service.expanded:hover .services-menu,.nav-service.expanded:focus-within .services-menu { display:block; }
   .services-heading { display:none; }
-  .services-grid { grid-template-columns:1fr 1fr; gap:1px 8px; padding:0; }
-  .services-grid>a { padding:8px 5px; }
-  .services-grid>a>span,.services-grid small,.services-grid>a>b { display:none; }
+  .services-grid { gap:18px; padding:8px 0 0; }
+  .services-group>div { grid-template-columns:1fr 1fr; gap:1px 8px; }
+  .services-group a { padding:8px 5px; }
+  .services-grid small,.services-group a>b { display:none; }
   .services-grid strong { font-size:11px; }
   .breadcrumbs { padding:0 18px; }
   main { padding:0; }
@@ -670,6 +676,7 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
 }
 
 @media (max-width:520px) {
+  .services-group>div { grid-template-columns:1fr; }
   .visa-hero-copy { padding:32px 22px; }
   .visa-hero h1 { font-size:30px; letter-spacing:-1px; }
   .visa-hero h1 span { font-size:19px; }
@@ -789,8 +796,7 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
 
 /* Production homepage refinement */
 .header nav,.nav-service>button { font-weight:400; }
-.services-grid>a>span { display:none; }
-.services-grid>a { padding:11px 10px; border-radius:4px; }
+.services-group a { padding:11px 10px; border-radius:4px; }
 .services-grid strong { font-size:13px; font-weight:600; }
 .services-grid small { font-size:11px; }
 .home-page h1,.home-page h2,.home-page h3 { font-weight:700; }
