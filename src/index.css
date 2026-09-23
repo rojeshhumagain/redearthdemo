@@ -1158,26 +1158,26 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
 .home-hero-shell { padding:56px 0 62px; background:var(--navy-soft); }
 .home-hero { min-height:0; padding:0; grid-template-columns:minmax(0,1fr) minmax(470px,.98fr); gap:64px; align-items:center; }
 .home-hero-content { padding:30px 0; }
-.home-kicker { margin-bottom:16px; font-size:12px; font-weight:600; }
-.home-hero h1 { max-width:660px; font-size:60px; line-height:1.04; letter-spacing:-1.8px; font-weight:700; }
+.home-kicker { margin-bottom:16px; font-size:12px; font-weight:500; letter-spacing:.08em; }
+.home-hero h1 { max-width:660px; font-size:60px; line-height:1.1; letter-spacing:-1.2px; font-weight:600; }
 .home-intro { max-width:620px; margin-top:24px; font-size:18px; line-height:1.65; }
 .home-actions { gap:12px; margin-top:30px; }
-.home-actions>a { min-height:48px; padding:0 21px; display:inline-flex; align-items:center; justify-content:center; border-radius:24px; font-size:14px; font-weight:600; }
+.home-actions>a { min-height:48px; padding:0 21px; display:inline-flex; align-items:center; justify-content:center; border-radius:24px; font-size:14px; font-weight:500; }
 .home-secondary { border:1px solid var(--navy); background:#fff; color:var(--navy); text-decoration:none; }
 .home-secondary:hover { border-color:var(--navy); background:var(--navy); color:#fff; }
 .home-assurance { margin-top:34px; padding-top:18px; }
-.home-assurance strong { color:var(--navy); font-size:14px; font-weight:500; }
+.home-assurance strong { color:var(--navy); font-size:14px; font-weight:400; }
 .home-hero-visual { display:block; overflow:hidden; border-radius:var(--radius); background:#fff; }
 .home-hero-visual img { display:block; width:100%; height:510px; min-height:0; object-fit:cover; object-position:center 42%; }
-.home-hero-visual figcaption { padding:15px 18px; display:block; background:#fff; color:var(--navy); font-size:13px; font-weight:500; }
+.home-hero-visual figcaption { padding:15px 18px; display:block; background:#fff; color:var(--navy); font-size:13px; font-weight:400; }
 .hero-pathway { max-width:1280px; margin:43px auto 0; display:block; border:0; background:transparent; }
 .pathway-heading { padding:0; display:flex; align-items:flex-end; justify-content:space-between; gap:30px; }
-.pathway-heading p { margin:0 0 6px; font-size:11px; font-weight:600; }
+.pathway-heading p { margin:0 0 6px; font-size:11px; font-weight:500; letter-spacing:.08em; }
 .pathway-heading h2 { font-size:26px; line-height:1.25; font-weight:600; }
 .pathway-options { margin-top:22px; gap:14px; }
 .pathway-options>a { min-height:94px; padding:18px 19px; align-items:center; border:1px solid var(--line); border-radius:8px; background:#fff; transition:background .18s ease,border-color .18s ease,color .18s ease; }
 .pathway-options>a:hover { border-color:var(--navy); background:#e9f0f5; }
-.pathway-options strong { font-size:16px; font-weight:600; }
+.pathway-options strong { font-size:16px; font-weight:500; }
 .pathway-options span { font-size:13px; line-height:1.45; }
 .pathway-options b { flex-shrink:0; color:var(--red); font-size:17px; }
 .pathway-options>a:focus-visible { border-color:var(--navy); background:var(--navy); color:#fff; }
@@ -1440,7 +1440,11 @@ body { color:var(--content-blue); }
 .visa-hero-copy>p:not(.kicker),.page-nav a,.visa-content>section>p:not(.section-label),.notice p,.problem-list p,.warning p,.faq>p,.agent-card p,.form-heading span,.form-grid input,.form-grid select,.form-grid textarea,.form-success p,.related-heading>div>span,.related-card-body>span,.related-card-body small { color:var(--content-blue); }
 .home-intro,.pathway-options span,.trust-copy>p,.trust-evidence p,.production-services header>p,.production-service-feature>div>span,.finder-intro>span,.finder-disclaimer,.finder-options small,.finder-result>span,.process-heading>p,.process-list p,.process-close p,.approach-lead,.approach-item>p,.journeys-heading>div:last-child>p,.journey-story dd,.journey-close>div span,.journey-disclaimer,.locations-heading>p,.office-tabs small,.office-information dd,.news-heading>div:last-child>p,.news-feature>div>span,.news-supporting article>div>span,.news-note,.homepage-faq aside>span,.homepage-faq-item>p,.contact-context>span,.contact-next li>span,.contact-form-heading>span,.contact-fields input,.contact-fields select,.contact-message textarea,.service-choice label>span,.contact-consent,.contact-disclaimer,.home-contact-success>strong { color:var(--content-blue); }
 .page-nav a,.production-service-tabs button,.journey-tabs button,.office-information dt,.finder-result dt,.service-choice-group>p { font-family:'Outfit',system-ui,Arial,sans-serif; }
-h1,h2,h3,h4,h5,h6 { font-family:'Outfit',system-ui,Arial,sans-serif; font-weight:700!important; text-wrap:balance; }
+h1,h2,h3,h4,h5,h6 { font-family:'Outfit',system-ui,Arial,sans-serif; font-weight:600!important; text-wrap:balance; }
+
+/* Use the same restrained Outfit hierarchy throughout, not just in the header. */
+:is(.kicker,.section-label,.page-nav>p,.visa-details>p,.form-heading p,.related-card-body>p,.trust-title>p,.service-intro>p,.service-story-copy>p,.finder-intro>p,.finder-result>p,.process-heading>div>p,.approach-content>p,.journeys-heading>div:first-child>p,.journey-story>p,.locations-heading>div>p,.office-information>p,.news-heading>div:first-child>p,.news-feature p,.news-supporting p,.homepage-faq aside>p,.contact-context>p,.contact-next>p,.contact-form-heading>p,.home-review-heading>div>p,.final-cta-copy>p:first-child,.concepts-intro>p,.concept-label>span,.cta-concept-one>div>p,.cta-concept-two>div>p,.cta-concept-three header>p,.cta-concept-four header>p) { font-weight:500; letter-spacing:.08em; }
+:is(.trust-copy>a,.service-intro>div a,.service-story-copy>a,.news-heading>div:last-child>a,.news-feature a,.news-supporting a,.homepage-faq aside>div a,.contact-submit,.office-appointment,.finder-result-actions>a,.related-card-body a,.concepts-intro>div a) { font-weight:600; }
 
 /* Keep the brand on actions and dark surfaces; use the same ink for reading on light ones. */
 :is(.home-hero-shell,.home-trust,.production-services,.visa-finder,.home-process,.home-approach,.client-journeys,.office-locations,.home-news,.homepage-faq,.home-contact,.concepts-main,.visa-hero,.visa-content,.visa-sidebar,.related-section) :is(h1,h2,h3,h4,h5,h6) { color:var(--ink); }
