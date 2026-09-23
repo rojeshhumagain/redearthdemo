@@ -1,6 +1,6 @@
 @font-face { font-family:'Outfit'; src:url('/fonts/outfit-latin.woff2') format('woff2'); font-style:normal; font-weight:100 900; font-display:swap; }
 
-:root { --red:#c9172c; --red-dark:#a90f21; --red-soft:#fff3f4; --navy:#083b70; --navy-light:#145993; --navy-soft:#f1f5f8; --ink:#111820; --muted:#3f4b56; --line:#cfd7de; --radius:10px; --radius-small:6px; --space-section:96px; font-family:'Outfit',system-ui,Arial,sans-serif; color:var(--ink); background:#fff; font-synthesis:none; }
+:root { --red:#c9172c; --red-dark:#a90f21; --red-soft:#fff3f4; --navy:#083b70; --navy-light:#145993; --navy-soft:#f1f5f8; --ink:#171717; --muted:#292929; --line:#cfd7de; --radius:10px; --radius-small:6px; --space-section:96px; font-family:'Outfit',system-ui,Arial,sans-serif; color:var(--ink); background:#fff; font-synthesis:none; }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body { margin:0; min-width:320px; color:var(--ink); font-size:16px; -webkit-font-smoothing:antialiased; }
@@ -1432,7 +1432,7 @@ footer { background:var(--navy); color:#fff; border-bottom:7px solid var(--red);
 }
 
 /* Unified Outfit typography and content-blue system */
-:root { --content-blue:#23384b; }
+:root { --content-blue:var(--ink); }
 body,button,input,select,textarea { font-family:'Outfit',system-ui,Arial,sans-serif; }
 body { color:var(--content-blue); }
 .header,.header a,.header button,.utility,.utility a { font-family:'Outfit',system-ui,Arial,sans-serif; }
@@ -1441,3 +1441,34 @@ body { color:var(--content-blue); }
 .home-intro,.pathway-options span,.trust-copy>p,.trust-evidence p,.production-services header>p,.production-service-feature>div>span,.finder-intro>span,.finder-disclaimer,.finder-options small,.finder-result>span,.process-heading>p,.process-list p,.process-close p,.approach-lead,.approach-item>p,.journeys-heading>div:last-child>p,.journey-story dd,.journey-close>div span,.journey-disclaimer,.locations-heading>p,.office-tabs small,.office-information dd,.news-heading>div:last-child>p,.news-feature>div>span,.news-supporting article>div>span,.news-note,.homepage-faq aside>span,.homepage-faq-item>p,.contact-context>span,.contact-next li>span,.contact-form-heading>span,.contact-fields input,.contact-fields select,.contact-message textarea,.service-choice label>span,.contact-consent,.contact-disclaimer,.home-contact-success>strong { color:var(--content-blue); }
 .page-nav a,.production-service-tabs button,.journey-tabs button,.office-information dt,.finder-result dt,.service-choice-group>p { font-family:'Outfit',system-ui,Arial,sans-serif; }
 h1,h2,h3,h4,h5,h6 { font-family:'Outfit',system-ui,Arial,sans-serif; font-weight:700!important; text-wrap:balance; }
+
+/* Keep the brand on actions and dark surfaces; use the same ink for reading on light ones. */
+:is(.home-hero-shell,.home-trust,.production-services,.visa-finder,.home-process,.home-approach,.client-journeys,.office-locations,.home-news,.homepage-faq,.home-contact,.concepts-main,.visa-hero,.visa-content,.visa-sidebar,.related-section) :is(h1,h2,h3,h4,h5,h6) { color:var(--ink); }
+.process-workspace>aside h3,.help-panel h2,.production-cta h2,.cta-concept-one h2,.cta-concept-four h2 { color:#fff; }
+.header nav,.header nav>a:not(.nav-contact),.nav-service>button,.utility-inner>a:not(.appointment),.breadcrumbs,.services-heading strong,.services-grid strong,.services-grid small,.page-nav a:not(.active),.page-nav a:not(.active)>span,.trust-copy>strong,.trust-evidence strong,.trust-evidence span,.pathway-options strong,.pathway-options span,.production-service-tabs button:not(.active),.production-service-feature li,.finder-progress>div:first-child span,.finder-progress>div:first-child small,.finder-form legend,.finder-options strong,.process-list h3,.journey-tabs button:not(.active),.journey-story dt,.office-tabs>button:not(.active) strong,.office-tabs>button:not(.active) small,.office-information dd a,.homepage-faq-item button:not([aria-expanded='true']) strong,.contact-fields label>span,.contact-message>span,.service-choice legend,.service-choice-group>p,.service-choice label>span,.visa-details dt,.visa-details dd,.related-card-body small,.concept-goals button:not(.active),.concept-goal-result>p { color:var(--ink); }
+.home-hero-visual figcaption,.home-assurance strong,.news-feature small,.news-supporting small,.office-information dt,.contact-direct small,.contact-form-heading>span,.concepts-intro>div span,.concept-label>strong,.concept-label>p,.cta-concept-two>div>strong,.cta-concept-two li,.cta-concept-three header>span,.concept-goal-result>span { color:var(--ink); }
+.header nav>a.nav-contact { color:var(--red); }
+.header nav>a.nav-contact:hover { color:#fff; }
+.page-nav a.active,.page-nav a.active>span,.production-service-tabs button.active,.service-choice input:checked+span,.concept-goals button.active,.office-tabs>button.active strong,.office-tabs>button.active small { color:#fff; }
+.service-choice label:hover>span { color:var(--red-dark); }
+
+/* Remove ornament-only rules; preserve input boundaries, selection, tables and FAQ rows. */
+.header,.site-footer { border-bottom:0; }
+.services-menu { border-top:0; }
+.home-assurance,.trust-evidence,.process-close,.news-layout,.news-note,.news-feature>div>div,.related-card-body>div,.homepage-faq aside>div,.contact-next,.contact-direct,.contact-form-heading,.production-cta aside>p,.cta-trust-note,.cta-concept-one aside { border:0; }
+.home-assurance { margin-top:28px; padding-top:0; }
+.trust-evidence { margin-top:58px; padding-top:0; }
+.trust-evidence>div,.trust-evidence>div:first-child { border-left:0; }
+.trust-evidence strong::after,.page-nav>p::after { content:none; }
+.production-service-feature ul,.production-service-feature li,.journey-close { border:0; }
+.production-service-feature ul { gap:6px 24px; }
+.production-service-feature li { min-height:40px; padding:8px 0; }
+.news-supporting article+article { border-top:0; }
+.homepage-faq-list,.approach-list { border-top:0; }
+.page-nav nav { border-top:0; }
+.cta-concept-one aside { padding-left:45px; }
+
+@media (max-width:820px) {
+  .trust-evidence>div,.trust-evidence>div:first-child,.trust-evidence>div:nth-child(odd),.trust-evidence>div:nth-child(even) { border-left:0; border-right:0; }
+  .cta-concept-one aside { padding-left:0; }
+}
