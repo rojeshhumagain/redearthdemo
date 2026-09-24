@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import CTAConcepts from './CTAConcepts'
 import HomePage from './HomePage'
+import ScrollReveal from './ScrollReveal'
 import SiteFooter from './SiteFooter'
 import SiteHeader from './SiteHeader'
 import { serviceGroups } from './serviceData'
@@ -213,6 +214,7 @@ function App() {
       {path === '/' ? <HomePage /> : path === '/cta-concepts' ? <CTAConcepts /> : serviceGroup ? <ServiceCategoryPage group={serviceGroup} /> : <VisaPage />}
     </Suspense>
     {path !== '/cta-concepts' && <SiteFooter />}
+    <ScrollReveal />
   </>
 }
 
