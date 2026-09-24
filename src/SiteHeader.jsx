@@ -7,9 +7,22 @@ const menuLabels = {
   'Other Services': ['Other Services Details 1'],
 }
 
-const countries = {
-  Australia: ['Osborne Park', 'Morley', 'Harrisdale'],
-  India: ['New Delhi'],
+const countries = ['Global', 'Australia', 'India']
+
+function detectCountry() {
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+  if (timezone?.startsWith('Australia/')) return 'Australia'
+  if (timezone === 'Asia/Kolkata' || timezone === 'Asia/Calcutta') return 'India'
+  const region = navigator.language?.split('-')[1]?.toUpperCase()
+  if (region === 'AU') return 'Australia'
+  if (region === 'IN') return 'India'
+  return 'Global'
+}
+
+function CountryIcon({ country }) {
+  if (country === 'Global') return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c-3 3-4 6-4 9s1 6 4 9m0-18c3 3 4 6 4 9s-1 6-4 9" /></svg>
+  if (country === 'India') return <svg viewBox="0 0 48 32" aria-hidden="true"><rect width="48" height="32" fill="#fff" /><path fill="#ff9933" d="M0 0h48v10.67H0z" /><path fill="#138808" d="M0 21.33h48V32H0z" /><circle cx="24" cy="16" r="4.5" fill="none" stroke="#000080" strokeWidth="1" /><circle cx="24" cy="16" r="1" fill="#000080" /><path d="M24 11.5v9m-4.5-4.5h9m-7.7-3.2 6.4 6.4m0-6.4-6.4 6.4" stroke="#000080" strokeWidth=".6" /></svg>
+  return <svg viewBox="0 0 48 32" aria-hidden="true"><rect width="48" height="32" fill="#012169" /><path d="M0 0 24 16M24 0 0 16" stroke="#fff" strokeWidth="4" /><path d="M0 0 24 16M24 0 0 16" stroke="#c8102e" strokeWidth="1.6" /><path d="M12 0v16M0 8h24" stroke="#fff" strokeWidth="5" /><path d="M12 0v16M0 8h24" stroke="#c8102e" strokeWidth="2.5" /><path d="m12 21 1 2.4 2.5.2-1.9 1.7.6 2.5-2.2-1.3-2.2 1.3.6-2.5-1.9-1.7 2.5-.2zm23-16 .8 1.8 2 .2-1.5 1.3.5 2-1.8-1-1.8 1 .5-2-1.5-1.3 2-.2zm7 8 .8 1.8 2 .2-1.5 1.3.5 2-1.8-1-1.8 1 .5-2-1.5-1.3 2-.2zm-8 8 .8 1.8 2 .2-1.5 1.3.5 2-1.8-1-1.8 1 .5-2-1.5-1.3 2-.2zm-10-8 .8 1.8 2 .2-1.5 1.3.5 2-1.8-1-1.8 1 .5-2-1.5-1.3 2-.2zm15 5 .6 1.4 1.5.1-1.1 1 .3 1.5-1.3-.8-1.3.8.3-1.5-1.1-1 1.5-.1z" fill="#fff" /></svg>
 }
 
 function CountryLocations({ country, onSelect, className }) {
@@ -33,23 +46,43 @@ function CountryLocations({ country, onSelect, className }) {
   }, [open])
 
   return <div className={`country-locations ${className}`} ref={container}>
-    <button type="button" className="country-trigger" aria-label={`Our locations, ${country}`} aria-expanded={open} onClick={() => setOpen(!open)}><span className="country-code" aria-hidden="true">{country === 'Australia' ? 'AU' : 'IN'}</span>{country}<svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="m2 4 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
-    {open && <div className="country-panel"><p>OUR LOCATIONS</p><div className="country-options">{Object.keys(countries).map((option) => <button key={option} type="button" className={country === option ? 'selected' : ''} aria-pressed={country === option} onClick={() => onSelect(option)}><span className="country-code" aria-hidden="true">{option === 'Australia' ? 'AU' : 'IN'}</span>{option}</button>)}</div><span className="country-panel-label">Our offices in {country}</span><div className="country-offices">{countries[country].map((office) => <span key={office}>{office}</span>)}</div></div>}
+    <button type="button" className="country-trigger" aria-label={`Select country, ${country}`} aria-expanded={open} onClick={() => setOpen(!open)}><span className="country-icon"><CountryIcon country={country} /></span>{country}<svg className="country-chevron" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="m2 4 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
+    {open && <div className="country-panel"><p>SELECT COUNTRY</p><div className="country-options">{countries.map((option) => <button key={option} type="button" className={country === option ? 'selected' : ''} aria-pressed={country === option} onClick={() => { onSelect(option); setOpen(false) }}><span className="country-icon"><CountryIcon country={option} /></span>{option}</button>)}</div></div>}
   </div>
 }
 
 export default function SiteHeader({ appointmentHref = '#contact-form' }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [openService, setOpenService] = useState(null)
-  const [country, setCountry] = useState('Australia')
+  const [country, setCountry] = useState(detectCountry)
+  const manualCountry = useRef(false)
+
+  useEffect(() => {
+    let active = true
+    navigator.permissions?.query({ name: 'geolocation' }).then((permission) => {
+      if (permission.state !== 'granted') return
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
+        if (!active || manualCountry.current) return
+        const { latitude, longitude } = coords
+        if (latitude >= -44 && latitude <= -10 && longitude >= 112 && longitude <= 154) setCountry('Australia')
+        else if (latitude >= 6 && latitude <= 37 && longitude >= 68 && longitude <= 98) setCountry('India')
+        else setCountry('Global')
+      }, () => {}, { timeout: 3000, maximumAge: 600000 })
+    }).catch(() => {})
+    return () => { active = false }
+  }, [])
+
+  const selectCountry = (value) => {
+    manualCountry.current = true
+    setCountry(value)
+  }
 
   return (
     <>
       <div className="utility"><div className="utility-inner">
         <a href="tel:+61861619239"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 16.4v2.9a2 2 0 0 1-2.2 2A18.5 18.5 0 0 1 2.7 5.2 2 2 0 0 1 4.7 3h2.9a2 2 0 0 1 2 1.7l.5 2.7a2 2 0 0 1-.6 1.8L7.8 11a15 15 0 0 0 5.2 5.2l1.8-1.7a2 2 0 0 1 1.8-.6l2.7.5a2 2 0 0 1 1.7 2Z" /></svg>(08) 6161 9239</a>
         <a href="mailto:info@redearthmigration.com.au"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2" /><path d="m3.5 6 8.5 7 8.5-7" /></svg>info@redearthmigration.com.au</a>
-        <CountryLocations country={country} onSelect={setCountry} className="utility-country" />
-        <a className="appointment" href={appointmentHref}>Book an Appointment</a>
+        <CountryLocations country={country} onSelect={selectCountry} className="utility-country" />
       </div></div>
       <header className="header">
         <a className="logo" href="/"><img src="/red-earth-logo.png" alt="Red Earth Education and Migration Agents" /></a>
@@ -62,7 +95,7 @@ export default function SiteHeader({ appointmentHref = '#contact-form' }) {
             <div className="services-menu"><div className="services-grid">{menuLabels[group].map((label) => <span className="services-placeholder" key={label}>{label}</span>)}</div></div>
           </div>)}
           <a href="/#immigration-news">News</a><a className="nav-contact" href={appointmentHref}>Contact Us</a>
-          <CountryLocations country={country} onSelect={setCountry} className="mobile-country" />
+          <CountryLocations country={country} onSelect={selectCountry} className="mobile-country" />
         </nav>
       </header>
     </>
