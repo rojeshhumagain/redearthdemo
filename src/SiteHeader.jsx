@@ -28,6 +28,7 @@ function CountryIcon({ country }) {
 function CountryLocations({ country, onSelect, className }) {
   const [open, setOpen] = useState(false)
   const container = useRef(null)
+  const trigger = useRef(null)
 
   useEffect(() => {
     if (!open) return
@@ -35,7 +36,10 @@ function CountryLocations({ country, onSelect, className }) {
       if (!container.current?.contains(event.target)) setOpen(false)
     }
     const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key === 'Escape') {
+        setOpen(false)
+        trigger.current?.focus()
+      }
     }
     document.addEventListener('pointerdown', closeOnOutsideClick)
     document.addEventListener('keydown', closeOnEscape)
@@ -46,14 +50,15 @@ function CountryLocations({ country, onSelect, className }) {
   }, [open])
 
   return <div className={`country-locations ${className}`} ref={container}>
-    <button type="button" className="country-trigger" aria-label={`Select country, ${country}`} aria-expanded={open} onClick={() => setOpen(!open)}><span className="country-icon"><CountryIcon country={country} /></span>{country}<svg className="country-chevron" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="m2 4 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
-    {open && <div className="country-panel"><p>SELECT COUNTRY</p><div className="country-options">{countries.map((option) => <button key={option} type="button" className={country === option ? 'selected' : ''} aria-pressed={country === option} onClick={() => { onSelect(option); setOpen(false) }}><span className="country-icon"><CountryIcon country={option} /></span>{option}</button>)}</div></div>}
+    <button ref={trigger} type="button" className="country-trigger" aria-label={`Select country, ${country}`} aria-expanded={open} onClick={() => setOpen(!open)}><span className="country-icon"><CountryIcon country={country} /></span>{country}<svg className="country-chevron" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="m2 4 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
+    <div className={`country-panel ${open ? 'open' : ''}`} aria-hidden={!open}><p>SELECT COUNTRY</p><div className="country-options">{countries.map((option) => <button key={option} type="button" className={country === option ? 'selected' : ''} aria-pressed={country === option} onClick={() => { onSelect(option); setOpen(false); trigger.current?.focus() }}><span className="country-icon"><CountryIcon country={option} /></span>{option}</button>)}</div></div>
   </div>
 }
 
 export default function SiteHeader({ appointmentHref = '#contact-form' }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [openService, setOpenService] = useState(null)
+  const clickedService = useRef(null)
   const [country, setCountry] = useState(detectCountry)
   const manualCountry = useRef(false)
 
@@ -89,10 +94,10 @@ export default function SiteHeader({ appointmentHref = '#contact-form' }) {
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">{menuOpen ? '✕' : '☰'}</button>
         <nav className={menuOpen ? 'open' : ''} aria-label="Main navigation">
           <a href="/#about-us">About Us</a>
-          {serviceGroups.map(([group, path]) => <div className={`nav-service ${openService === group ? 'expanded' : ''}`} key={group} onPointerEnter={(event) => { if (event.pointerType === 'mouse' && window.matchMedia('(min-width:921px)').matches) setOpenService(group) }} onPointerLeave={(event) => { if (event.pointerType === 'mouse' && window.matchMedia('(min-width:921px)').matches) setOpenService(null) }}>
+          {serviceGroups.map(([group, path]) => <div className={`nav-service ${openService === group ? 'expanded' : ''}`} key={group} onPointerEnter={(event) => { if (event.pointerType === 'mouse' && window.matchMedia('(min-width:921px)').matches) { clickedService.current = null; setOpenService(group) } }} onPointerLeave={(event) => { if (event.pointerType === 'mouse' && window.matchMedia('(min-width:921px)').matches) { clickedService.current = null; setOpenService(null) } }}>
             <a className="nav-service-link" href={path} onClick={() => { setOpenService(null); setMenuOpen(false) }}>{group}</a>
-            <button type="button" aria-label={`Toggle ${group} menu`} aria-expanded={openService === group} onClick={() => setOpenService(openService === group ? null : group)}><svg className="chevron" viewBox="0 0 12 12" width="14" height="14" aria-hidden="true"><path d="m2 4 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
-            <div className="services-menu"><div className="services-grid">{menuLabels[group].map((label) => <span className="services-placeholder" key={label}>{label}</span>)}</div></div>
+            <button type="button" aria-label={`Toggle ${group} menu`} aria-expanded={openService === group} onClick={() => { const shouldClose = clickedService.current === group && openService === group; clickedService.current = shouldClose ? null : group; setOpenService(shouldClose ? null : group) }}><svg className="chevron" viewBox="0 0 12 12" width="14" height="14" aria-hidden="true"><path d="m2 4 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
+             <div className="services-menu"><div className="services-menu-body"><p className="services-menu-heading">Explore {group}</p><div className="services-grid">{menuLabels[group].map((label) => <span className="services-placeholder" key={label}>{label}</span>)}</div></div></div>
           </div>)}
           <a href="/#immigration-news">News</a><a className="nav-contact" href={appointmentHref}>Contact Us</a>
           <CountryLocations country={country} onSelect={selectCountry} className="mobile-country" />
