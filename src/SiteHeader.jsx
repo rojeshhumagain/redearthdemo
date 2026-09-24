@@ -13,7 +13,11 @@ export default function SiteHeader({ appointmentHref = '#contact-form' }) {
 
   return (
     <>
-      <div className="utility"><div className="utility-inner"><a href="tel:+61861619239">☎ &nbsp;(08) 6161 9239</a><a href="mailto:info@redearthmigration.com.au">✉ &nbsp;info@redearthmigration.com.au</a><a className="appointment" href={appointmentHref}>Book an Appointment</a></div></div>
+      <div className="utility"><div className="utility-inner">
+        <a href="tel:+61861619239"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 16.4v2.9a2 2 0 0 1-2.2 2A18.5 18.5 0 0 1 2.7 5.2 2 2 0 0 1 4.7 3h2.9a2 2 0 0 1 2 1.7l.5 2.7a2 2 0 0 1-.6 1.8L7.8 11a15 15 0 0 0 5.2 5.2l1.8-1.7a2 2 0 0 1 1.8-.6l2.7.5a2 2 0 0 1 1.7 2Z" /></svg>(08) 6161 9239</a>
+        <a href="mailto:info@redearthmigration.com.au"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2" /><path d="m3.5 6 8.5 7 8.5-7" /></svg>info@redearthmigration.com.au</a>
+        <a className="appointment" href={appointmentHref}>Book an Appointment</a>
+      </div></div>
       <header className="header">
         <a className="logo" href="/"><img src="/red-earth-logo.png" alt="Red Earth Education and Migration Agents" /></a>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">{menuOpen ? '✕' : '☰'}</button>
